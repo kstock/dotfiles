@@ -1,0 +1,8 @@
+{
+	"rust.clippy_preference":"off"
+	,"python.linting.enabled":false
+	,"diagnostic.displayByAle":true
+	,"suggest.enablePreview":true
+	//,"codeLens.enable":true
+
+}
