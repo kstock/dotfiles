@@ -6,11 +6,7 @@ call plug#begin('~/.config/nvim/plugged')
         " TODO cf dirvish
         Plug 'scrooloose/nerdtree'
         " TODO investigate
-        " Plugin 'Xuyuanp/nerdtree-git-plugin'
-
-        map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
-        map <leader>e :NERDTreeFind<CR>
-        nmap <leader>nt :NERDTreeFind<CR>
+        Plug 'Xuyuanp/nerdtree-git-plugin'
 
         let NERDTreeShowBookmarks=1
         let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
@@ -40,8 +36,10 @@ call plug#begin('~/.config/nvim/plugged')
                 \}
     let g:ale_sh_shellcheck_executable = 'shellcheck'
     let g:ale_fixers = {
-                \ 'python':['autopep8', 'isort', 'trim_whitespace'],
-                \ 'rust':['rustfmt', 'trim_whitespace']
+                \ 'python':['isort', 'trim_whitespace', 'black'],
+                \ 'rust':['rustfmt', 'trim_whitespace'],
+                \ 'javascript':['prettier', 'trim_whitespace'],
+                \ 'html':['prettier', 'trim_whitespace']
                 \}
 
     let g:ale_fix_on_save = 1
@@ -78,10 +76,17 @@ call plug#begin('~/.config/nvim/plugged')
 
     Plug 'cespare/vim-toml'
 
-    "Plug 'SirVer/ultisnips'
-    "Plug 'honza/vim-snippets'
+    Plug 'SirVer/ultisnips'
+    Plug 'honza/vim-snippets'
 
     Plug 'kshenoy/vim-signature'
+
+    Plug 'tpope/vim-eunuch'
+    Plug 'majutsushi/tagbar'
+
+"    Plug 'ryanoasis/vim-devicons'
+    Plug 'leafgarland/typescript-vim'
+    Plug 'peitalin/vim-jsx-typescript'
 
 call plug#end()
 
@@ -174,5 +179,31 @@ map <S-L> gt
 set clipboard=unnamedplus
 
 let g:NERDDefaultAlign = 'start'
+
+nnoremap  <leader>tt :TagbarOpenAutoClose<CR>
+
+nnoremap <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
+nnoremap <leader>e :NERDTreeFind<CR>
+nnoremap <leader>nt :NERDTreeFind<CR>
+
+
+set list
+set listchars=tab:,.,trail:.,extends:#,nbsp:. " Highlight problematic  whitespace KYLE, colors were messed up in python
+"set listchars=trail:.",extends:#,nbsp:. " Highlight problematic  whitespace KYLE, colors were messed up in python
+
+" show existing tab with 4 spaces width
+set tabstop=4
+" when indenting with '>', use 4 spaces width
+set shiftwidth=4
+" On pressing tab, insert 4 spaces
+set expandtab
+
+" Always switch to the current file directory
+autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
+
+
+
 set rtp+=~/.vim/UltiSnips
 let g:UltiSnipsSnippetDirectories=["~/.vim/UltiSnips", "~/.config/nvim/plugged/vim-snippets/UltiSnips"]
+
+set tags^=./.git/tags;
