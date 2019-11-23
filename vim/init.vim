@@ -183,8 +183,7 @@ let g:NERDDefaultAlign = 'start'
 nnoremap  <leader>tt :TagbarOpenAutoClose<CR>
 
 nnoremap <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
-nnoremap <leader>e :NERDTreeFind<CR>
-nnoremap <leader>nt :NERDTreeFind<CR>
+nnoremap <leader>ee :NERDTreeFind<CR>
 
 
 set list
@@ -207,3 +206,14 @@ set rtp+=~/.vim/UltiSnips
 let g:UltiSnipsSnippetDirectories=["~/.vim/UltiSnips", "~/.config/nvim/plugged/vim-snippets/UltiSnips"]
 
 set tags^=./.git/tags;
+
+" For when you forget to sudo.. Really Write the file.
+cmap w!! w !sudo tee % >/dev/null
+
+" Some helpers to edit mode
+" http://vimcasts.org/e/14
+cnoremap %% <C-R>=expand('%:h').'/'<cr>
+map <leader>ew :e %%
+map <leader>es :sp %%
+map <leader>ev :vsp %%
+map <leader>et :tabe %%
