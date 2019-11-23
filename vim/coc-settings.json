@@ -4,5 +4,9 @@
 	,"diagnostic.displayByAle":true
 	,"suggest.enablePreview":true
 	//,"codeLens.enable":true
+	,"snippets.ultisnips.directories": [
+					  "~/.vim/UltiSnips"
+					  ,"~/.config/nvim/plugged/vim-snippets/UltiSnips"
+]
 
 }

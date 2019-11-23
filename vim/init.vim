@@ -174,3 +174,5 @@ map <S-L> gt
 set clipboard=unnamedplus
 
 let g:NERDDefaultAlign = 'start'
+set rtp+=~/.vim/UltiSnips
+let g:UltiSnipsSnippetDirectories=["~/.vim/UltiSnips", "~/.config/nvim/plugged/vim-snippets/UltiSnips"]
