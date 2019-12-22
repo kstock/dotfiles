@@ -3,10 +3,18 @@
 	,"python.linting.enabled":false
 	,"diagnostic.displayByAle":true
 	,"suggest.enablePreview":true
-	//,"codeLens.enable":true
-	,"snippets.ultisnips.directories": [
-					  "~/.vim/UltiSnips"
-					  ,"~/.config/nvim/plugged/vim-snippets/UltiSnips"
-]
+    ,"snippets.ultisnips.enable":"~/.vim/UltiSnips"
+    ,"snippets.ultisnips.directories":["UltiSnips"]
+    ,"snippets.userSnippetsDirectory":"~/.vim/UltiSnips"
+    ,"snippets.extends": {
+    //"javascriptreact": ["javascript"],
+    //"typescriptreact": ["javascript", "javascript-jasmine-arrow"],
+    //"typescript": ["javascript", "javascript-jasmine-arrow"]
+    "typescriptreact": ["typescript"],
+    "typescript.tsx": ["javascript"]
+  }
+    ,"yaml.schemas": {
+        "kubernetes": "/*.yaml"
+}
 
 }
