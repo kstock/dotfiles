@@ -190,6 +190,9 @@ if has('user_commands')
 endif
 " } end Stupid shift key fixes
 "
+" TODO make wrap
+noremap <Leader>te :+tabmove<CR>
+noremap <Leader>tb :-tabmove<CR>
 
 " end basic }
 
@@ -314,9 +317,9 @@ nnoremap <leader>ee :NERDTreeFind<CR>
 " end nerdtree }
 
 " snippets {
-set rtp+=~/.vim/UltiSnips
-set rtp+=~/.config/nvim/UltiSnips
-let g:UltiSnipsSnippetDirectories=["~/.vim/UltiSnips/", "~/.vim/UltiSnips/javascript/", "~/.config/nvim/plugged/vim-snippets/UltiSnips"]
+set runtimepath+=~/.vim/UltiSnips
+set runtimepath+=~/.config/nvim/UltiSnips
+let g:UltiSnipsSnippetDirectories=['~/.vim/UltiSnips/', '~/.vim/UltiSnips/javascript/', '~/.config/nvim/plugged/vim-snippets/UltiSnips']
 
 " end snippets }
 
@@ -324,8 +327,8 @@ let g:UltiSnipsSnippetDirectories=["~/.vim/UltiSnips/", "~/.vim/UltiSnips/javasc
 "
 nnoremap  <leader>tt :TagbarOpenAutoClose<CR>
 
-let g:gutentags_ctags_options_file="~/.ctags"
-let g:gutentags_ctags_tagfile=".git/tags"
+let g:gutentags_ctags_options_file='~/.ctags'
+let g:gutentags_ctags_tagfile='.git/tags'
 "let g:gutentags_ctags_tagfile="tags"
 "
 let g:tagbar_type_typescript = {
