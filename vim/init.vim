@@ -56,11 +56,25 @@ call plug#begin('~/.config/nvim/plugged')
 
     Plug 'ludovicchabant/vim-gutentags'
 
+    " cf vim-mundo
+    Plug 'mbbill/undotree'
+
 call plug#end()
 " }
 
 " basic {
 
+" history {
+" http://stackoverflow.com/questions/5700389/using-vims-persistent-undo
+set backup                  " Backups are nice ...
+set backupdir=~/.config/nvim/backup " looks like this is the default?
+if has('persistent_undo')
+    set undofile                " So is persistent undo ...
+    set undodir=~/config/nvim/undo
+    set undolevels=1000         " Maximum number of changes that can be undone
+    set undoreload=10000        " Maximum number lines to save for undo on a buffer reload
+endif
+" }
 " settings {
 "
 let mapleader = ','
@@ -268,6 +282,11 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 
 " nerdcommenter
 let g:NERDDefaultAlign = 'start'
+
+nnoremap <Leader>u :UndotreeToggle<CR>
+" If undotree is opened, it is likely one wants to interact with it.
+let g:undotree_SetFocusWhenToggle=1
+
 
 " NerdTree {
     let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
