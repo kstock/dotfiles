@@ -351,4 +351,16 @@ let g:tagbar_type_typescript = {
                                 \ }
 "}
 
+" grepper {
+
+command! Todo :Grepper -tool git -query '\(TODO\|FIXME\)'<CR>
+
+nnoremap <leader>g :Grepper -tool git<CR>
+nnoremap <leader>G :Grepper -tool rg<CR>
+
+nmap gs <plug>(GrepperOperator)
+xmap gs <plug>(GrepperOperator)
+
+" end }
+"
 " end plugin mappings }
