@@ -292,7 +292,7 @@ let g:undotree_SetFocusWhenToggle=1
 
 
 " NerdTree {
-    let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
+    let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr', '__pycache__']
 
     let NERDTreeShowBookmarks=1
     " never change cwd
