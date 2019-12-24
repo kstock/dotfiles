@@ -103,6 +103,8 @@ set listchars=tab:,.,trail:.,extends:#,nbsp:. " Highlight problematic  whitespac
 
 set tags^=./.git/tags;
 
+set dictionary=/usr/share/dict/usa
+
 colorscheme solarized
 
 "let g:solarized_termcolors=256
@@ -134,6 +136,11 @@ nnoremap Y y$
 
 " Toggle search highlighting
 nmap <silent> <leader>/ :set invhlsearch<CR>
+
+" https://bluz71.github.io/2017/05/15/vim-tips-tricks.html
+" j/k do gj unless have count. if count is > 5 then put in jumplist!
+nnoremap <expr> j v:count ? (v:count > 5 ? "m'" . v:count : '') . 'j' : 'gj'
+nnoremap <expr> k v:count ? (v:count > 5 ? "m'" . v:count : '') . 'k' : 'gk'
 
 " mappings }
 
