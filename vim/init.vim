@@ -109,9 +109,14 @@ set dictionary=/usr/share/dict/usa
 
 colorscheme solarized
 
+" default is 4000. in particular is nice for gitgutter
+set updatetime=100
+
 "let g:solarized_termcolors=256
 let g:solarized_termcolors=16
 
+
+let g:python3_host_prog = '~/.virtualenvs/py3nvim/bin/python'
 " settings }
 
 " mappings {
@@ -231,12 +236,14 @@ let g:ale_linters = {
             \ 'zsh':['shellcheck']
             \ ,'sh':['shellcheck']
             \ ,'python':['pylint']
+            \ ,'haskell':['stack_ghc']
             \ ,'typescript.tsx':['eslint']
             \}
 
 let g:ale_linter_aliases = {'typescriptreact': 'typescript'}
 
 let g:ale_sh_shellcheck_executable = 'shellcheck'
+"let g:ale_python_pylint_executable = '~/.virtualenvs/py3nvim/bin/pylint'
 
 let g:ale_fixers = {
             \ 'python':['isort', 'trim_whitespace', 'black'],
@@ -293,7 +300,9 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 " end coc }
 
 " nerdcommenter
-let g:NERDDefaultAlign = 'start'
+" black formatter making commenting not reversible
+"let g:NERDDefaultAlign = 'start'
+let g:NERDDefaultAlign = 'left'
 
 nnoremap <Leader>u :UndotreeToggle<CR>
 " If undotree is opened, it is likely one wants to interact with it.
