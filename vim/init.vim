@@ -59,6 +59,8 @@ call plug#begin('~/.config/nvim/plugged')
     " cf vim-mundo
     Plug 'mbbill/undotree'
 
+    Plug 'tyru/eskk.vim'
+
 call plug#end()
 " }
 
@@ -368,6 +370,17 @@ nnoremap <leader>G :Grepper -tool rg<CR>
 nmap gs <plug>(GrepperOperator)
 xmap gs <plug>(GrepperOperator)
 
+" pacman -S skk-jisyo
+"https://vi.stackexchange.com/questions/8733/can-i-write-japanese-skk-text-in-vim
+let g:eskk#large_dictionary = {
+\   'path': '/usr/share/skk/SKK-JISYO.L',
+\   'sorted': 1,
+\   'encoding': 'euc-jp',
+\ }
+
+nnoremap <leader>j :call eskk#toggle()<CR>
+" <C-j> used for snippets!
+imap <C-j><C-j> <Plug>(eskk:toggle)
 " end }
 "
 " end plugin mappings }
