@@ -170,9 +170,14 @@ vnoremap > >gv
 noremap <Leader>te :+tabmove<CR>
 noremap <Leader>tb :-tabmove<CR>
 
-" tag in new tab
+" tag in new tab/zoom
 " https://stackoverflow.com/questions/6069279/vim-open-tag-in-new-tab
 nnoremap <silent><Leader>t<C-]> <C-w><C-]><C-w>T
+
+" zoom. can just use <C-w>= to undo
+" <C-w>z already taken by close window <C-w>m available....
+noremap <leader><C-w>z <c-w>_ \| <c-w>\|
+
 " end tab related }
 "
 " mappings }
