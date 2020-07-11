@@ -158,11 +158,16 @@ nnoremap <expr> k v:count ? (v:count > 5 ? "m'" . v:count : '') . 'k' : 'gk'
 " Visual shifting (does not exit Visual mode)
 vnoremap < <gv
 vnoremap > >gv
-
+" tab related {
 " TODO make wrap
 noremap <Leader>te :+tabmove<CR>
 noremap <Leader>tb :-tabmove<CR>
 
+" tag in new tab
+" https://stackoverflow.com/questions/6069279/vim-open-tag-in-new-tab
+nnoremap <silent><Leader>t<C-]> <C-w><C-]><C-w>T
+" end tab related }
+"
 " mappings }
 
 " autocmds {
