@@ -470,7 +470,9 @@ let g:eskk#large_dictionary = {
 \ }
 
 nnoremap <leader>j :call eskk#toggle()<CR>
+
 " <C-j> used for snippets!
+let g:eskk#no_default_mappings = 1
 imap <C-j><C-j> <Plug>(eskk:toggle)
 " end }
 "
