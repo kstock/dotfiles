@@ -1,6 +1,7 @@
 " Modeline and Notes {
 " vim: set foldmarker={,} foldlevel=0 foldmethod=marker:
 " }
+"
 
 " plug begin {
 call plug#begin('~/.config/nvim/plugged')
@@ -42,6 +43,8 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'kshenoy/vim-signature'
 
     Plug 'tpope/vim-eunuch'
+
+    " cf for lsp support https://github.com/liuchengxu/vista.vim
     Plug 'majutsushi/tagbar'
 
 "    Plug 'ryanoasis/vim-devicons'
@@ -62,7 +65,7 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'tyru/eskk.vim'
 
 call plug#end()
-" }
+" end plug }
 
 " basic {
 
@@ -152,6 +155,14 @@ nmap <silent> <leader>/ :set invhlsearch<CR>
 nnoremap <expr> j v:count ? (v:count > 5 ? "m'" . v:count : '') . 'j' : 'gj'
 nnoremap <expr> k v:count ? (v:count > 5 ? "m'" . v:count : '') . 'k' : 'gk'
 
+" Visual shifting (does not exit Visual mode)
+vnoremap < <gv
+vnoremap > >gv
+
+" TODO make wrap
+noremap <Leader>te :+tabmove<CR>
+noremap <Leader>tb :-tabmove<CR>
+
 " mappings }
 
 " autocmds {
@@ -205,15 +216,11 @@ if has('user_commands')
     command! -bang QA qa<bang>
     command! -bang Qa qa<bang>
 endif
-" } end Stupid shift key fixes
+" end Stupid shift key fixes }
 "
-" TODO make wrap
-noremap <Leader>te :+tabmove<CR>
-noremap <Leader>tb :-tabmove<CR>
-
 " end basic }
 
-" { plugin mappings
+" plugin mappings {
 
 " ctrlp {
 let g:ctrlp_custom_ignore = {
@@ -320,7 +327,7 @@ xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 " end coc }
 
-" nerdcommenter
+" nerdcommenter {
 " black formatter making commenting not reversible
 "let g:NERDDefaultAlign = 'start'
 let g:NERDDefaultAlign = 'left'
@@ -328,6 +335,7 @@ let g:NERDDefaultAlign = 'left'
 nnoremap <Leader>u :UndotreeToggle<CR>
 " If undotree is opened, it is likely one wants to interact with it.
 let g:undotree_SetFocusWhenToggle=1
+" end nerdcommenter }
 
 
 " NerdTree {
@@ -364,12 +372,36 @@ let g:UltiSnipsSnippetDirectories=['~/.vim/UltiSnips/', '~/.vim/UltiSnips/javasc
 
 " tag related {
 "
+"Open the Tagbar window, jump to it and close it on tag selection. This is
+"an alias for ":TagbarOpen fjc".
 nnoremap  <leader>tt :TagbarOpenAutoClose<CR>
 
 let g:gutentags_ctags_options_file='~/.ctags'
 let g:gutentags_ctags_tagfile='.git/tags'
 "let g:gutentags_ctags_tagfile="tags"
 "
+"
+" copied from /home/kstock/.config/nvim/plugged/tagbar/autoload/tagbar/types/ctags.vim
+" then added section!
+" stl is for statusline
+        "\ {'short' : 'n', 'long' : 'vimball filenames',  'fold' : 0, 'stl' : 1},
+" {short}:{long}[:{fold}[:{stl}]]
+let g:tagbar_type_vim     = {
+            \'kinds' :[
+                        \'s:sections:1:0',
+                        \'n:vimballfilenames:0,1',
+                        \'v:variables:1:0',
+                        \'f:functions:0,1',
+                        \'a:autocommandgroups:1,1',
+                        \'c:commands:0,0',
+                        \'m:maps:1,0',
+    \]
+    \,'kind2scope' : {
+        \ 's' : 'section',
+    \ }
+    \,'sro' : '.'
+    \}
+
 let g:tagbar_type_typescript = {
                                   \ 'ctagsbin' : 'tstags',
                                   \ 'ctagsargs' : '-f-',
