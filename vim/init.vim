@@ -448,13 +448,13 @@ let g:grepper.tools = ['rg', 'ack', 'ag', 'ack-grep', 'grep', 'git', 'pt', 'sift
 " Make some shortands for various grep programs
 " https://github.com/ViViDboarder/vim-settings/blob/e085795b92dd28e4a775d310ad887518663038aa/vim/rc/plugins/vim-grepper.rc.vim
 if executable('rg')
-    command -nargs=+ Rg :GrepperRg <args>
+    command! -nargs=+ Rg :GrepperRg <args>
 endif
 if executable('ag')
-    command -nargs=+ Ag :GrepperAg <args>
+    command! -nargs=+ Ag :GrepperAg <args>
 endif
 if executable('ack')
-    command -nargs=+ Ack :GrepperAck <args>
+    command! -nargs=+ Ack :GrepperAck <args>
 endif
 
 
