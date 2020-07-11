@@ -464,6 +464,27 @@ nnoremap <silent> <leader>Gc :Gcommit<cr>
 
 " end fugitive }
 
+" git messenger {
+
+"When this value is NOT set to "none", a popup window includes diff hunks of
+"the commit at showing up. "current" includes diff hunks of only current file
+"in the commit. "all" includes all diff hunks in the commit.
+let g:git_messenger_include_diff='current'
+let g:git_messenger_always_into_popup=v:true
+
+function! s:setup_git_messenger_popup() abort
+    " avoid having to press shift for O to go forward to new commit
+    " though io seems kinda backwards...
+    nmap <buffer>i O
+endfunction
+
+augroup git_messenger_setup_augroup
+    autocmd!
+    autocmd FileType gitmessengerpopup call s:setup_git_messenger_popup()
+augroup END
+
+" end git messenger}
+
 " end git related }
 
 
@@ -473,6 +494,7 @@ command! Todo :Grepper -tool rg -noprompt -query 'TODO|FIXME'<CR>
 
 " fugitive uses ,G
 " because these more common commands are taking ,g namespace!
+" however I'm keeping git-messenger gm since that is more common
 nnoremap <leader>gb :Grepper -buffer<CR>
 nnoremap <leader>gB :Grepper -buffers<CR>
 
