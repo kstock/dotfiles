@@ -394,12 +394,36 @@ let g:tagbar_type_typescript = {
 
 command! Todo :Grepper -tool git -query '\(TODO\|FIXME\)'<CR>
 
-nnoremap <leader>g :Grepper -tool git<CR>
-nnoremap <leader>G :Grepper -tool rg<CR>
+nnoremap <leader>gb :Grepper -buffer<CR>
+nnoremap <leader>gB :Grepper -buffers<CR>
+
+nnoremap <leader>gg :Grepper -tool git<CR>
+nnoremap <leader>gd :Grepper -tool rg<CR>
 
 nmap gs <plug>(GrepperOperator)
 xmap gs <plug>(GrepperOperator)
 
+"let g:grepper = {}            " initialize g:grepper with empty dictionary
+runtime plugin/grepper.vim    " initialize g:grepper with default values
+
+let g:grepper.tools = ['rg', 'ack', 'ag', 'ack-grep', 'grep', 'git', 'pt', 'sift']
+
+" Make some shortands for various grep programs
+" https://github.com/ViViDboarder/vim-settings/blob/e085795b92dd28e4a775d310ad887518663038aa/vim/rc/plugins/vim-grepper.rc.vim
+if executable('rg')
+    command -nargs=+ Rg :GrepperRg <args>
+endif
+if executable('ag')
+    command -nargs=+ Ag :GrepperAg <args>
+endif
+if executable('ack')
+    command -nargs=+ Ack :GrepperAck <args>
+endif
+
+
+" end }
+
+" jp {
 " pacman -S skk-jisyo
 "https://vi.stackexchange.com/questions/8733/can-i-write-japanese-skk-text-in-vim
 let g:eskk#large_dictionary = {
