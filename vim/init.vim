@@ -64,6 +64,8 @@ call plug#begin('~/.config/nvim/plugged')
 
     Plug 'tyru/eskk.vim'
 
+    Plug 'tpope/vim-abolish'
+
 call plug#end()
 " end plug }
 
