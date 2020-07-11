@@ -95,6 +95,9 @@ set expandtab
 set ignorecase
 set smartcase
 
+" Allow buffer switching without saving
+set hidden
+
 " relative numbers, except for current line!
 set number
 set relativenumber
@@ -265,6 +268,7 @@ nmap ]W <Plug>(ale_next_wrap)
 " end ale }
 
 " coc {
+" https://github.com/neoclide/coc.nvim#example-vim-configuration
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -292,11 +296,28 @@ endfunction
 "let g:coc_snippet_next = '<c-j>'
 
 "" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
-"let g:coc_snippet_prev = '<c-k>'
+let g:coc_snippet_prev = '<c-k>'
 
 " Use <C-j> for both expand and jump (make expand higher priority.)
 imap <C-j> <Plug>(coc-snippets-expand-jump)
 
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Map function and class text objects
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
 " end coc }
 
 " nerdcommenter

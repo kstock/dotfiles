@@ -1,11 +1,18 @@
 {
-	"rust.clippy_preference":"off"
+	"suggest.enablePreview":true
+
+	,"rust.clippy_preference":"off"
+
+    //,"python.trace.server": "verbose"
 	,"python.linting.enabled":false
+    ,"python.jediEnabled": true
+
 	,"diagnostic.displayByAle":true
-	,"suggest.enablePreview":true
+
     ,"snippets.ultisnips.enable":"~/.vim/UltiSnips"
     ,"snippets.ultisnips.directories":["UltiSnips"]
     ,"snippets.userSnippetsDirectory":"~/.vim/UltiSnips"
+
     ,"snippets.extends": {
     //"javascriptreact": ["javascript"],
     //"typescriptreact": ["javascript", "javascript-jasmine-arrow"],
@@ -13,6 +20,7 @@
     "typescriptreact": ["typescript"],
     "typescript.tsx": ["javascript"]
   }
+
     ,"yaml.schemas": {
         "kubernetes": "/*.yaml"
 }
