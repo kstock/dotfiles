@@ -420,7 +420,7 @@ let g:tagbar_type_typescript = {
                                   \ ],
                                   \ 'sort' : 0
                                 \ }
-"}
+" end tag related }
 
 " grepper {
 
