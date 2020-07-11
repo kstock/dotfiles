@@ -28,12 +28,17 @@ call plug#begin('~/.config/nvim/plugged')
 
     Plug 'scrooloose/nerdcommenter'
 
-    Plug 'airblade/vim-gitgutter'
-    Plug 'rhysd/git-messenger.vim'
 
     Plug 'machakann/vim-sandwich'
     Plug 'tpope/vim-obsession'
+
+    " git related
+    Plug 'airblade/vim-gitgutter'
+    Plug 'rhysd/git-messenger.vim'
     Plug 'tpope/vim-fugitive'
+    " following 2 needed to make symlinks work in fugitive
+    Plug 'moll/vim-bbye' " optional dependency for symlink
+    Plug 'aymericbeaumet/vim-symlink'
 
     Plug 'cespare/vim-toml'
 
@@ -429,10 +434,45 @@ let g:tagbar_type_typescript = {
                                 \ }
 " end tag related }
 
+" git related {
+
+" git gutter {
+
+" defaut is c for these
+" but that conflicts with coc class textobj
+" and does not match ,h mappings!
+" nore form not does not work not sure why
+omap ih <Plug>(GitGutterTextObjectInnerPending)
+omap ah <Plug>(GitGutterTextObjectOuterPending)
+xmap ih <Plug>(GitGutterTextObjectInnerVisual)
+xmap ah <Plug>(GitGutterTextObjectOuterVisual)
+
+nmap [h <Plug>(GitGutterPrevHunk)
+nmap ]h <Plug>(GitGutterNextHunk)
+
+" end git gutter }
+
+" Fugitive {
+
+" grepper uses ,g so these less common commands use ,G
+nnoremap <silent> <leader>Gs :Gstatus<cr>
+nnoremap <silent> <leader>Gl :Glog<cr>
+nnoremap <silent> <leader>Gb :Gblame<cr>
+nnoremap <silent> <leader>Gd :Gdiff<cr>
+nnoremap <silent> <leader>Gc :Gcommit<cr>
+"nnoremap <silent> <leader>Gp :git push<cr>
+
+" end fugitive }
+
+" end git related }
+
+
 " grepper {
 
 command! Todo :Grepper -tool rg -noprompt -query 'TODO|FIXME'<CR>
 
+" fugitive uses ,G
+" because these more common commands are taking ,g namespace!
 nnoremap <leader>gb :Grepper -buffer<CR>
 nnoremap <leader>gB :Grepper -buffers<CR>
 
