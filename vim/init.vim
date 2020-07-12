@@ -71,6 +71,10 @@ call plug#begin('~/.config/nvim/plugged')
 
     Plug 'tpope/vim-abolish'
 
+    " cf repmo and see if ;, suffice
+    "use space to repeat motions!
+    "Plug 'spiiph/vim-space'
+
 call plug#end()
 " end plug }
 
@@ -90,8 +94,9 @@ endif
 " settings {
 "
 let mapleader = ','
-
-map <leader>w :w<CR>
+" leader currently used up , (repeat motion backwards)
+" keeping this mapping here instead of in mapping section for simplicity
+nnoremap <silent> <Leader>; ,
 
 set clipboard=unnamedplus
 
@@ -108,9 +113,15 @@ set smartcase
 " Allow buffer switching without saving
 set hidden
 
+" on load fold code more than 2 deep
+set foldlevelstart=2
+
 " relative numbers, except for current line!
 set number
 set relativenumber
+
+" vertical line at 80 chars
+set colorcolumn=80
 
 set list
 set listchars=tab:,.,trail:.,extends:#,nbsp:. " Highlight problematic  whitespace KYLE, colors were messed up in python
@@ -134,6 +145,9 @@ let g:python3_host_prog = '~/.virtualenvs/py3nvim/bin/python'
 
 " mappings {
 inoremap jj <Esc>
+
+nnoremap Y y$
+
 " The following two lines conflict with moving to top and
 " bottom of the screen
 map <S-H> gT
@@ -152,7 +166,13 @@ map <leader>es :sp %%
 map <leader>ev :vsp %%
 map <leader>et :tabe %%
 
-nnoremap Y y$
+
+" easy save
+map <leader>w :w<CR>
+map <leader>W :wa<CR>
+
+" select last paste in visual mode
+nnoremap <expr> gb '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 " Toggle search highlighting
 nmap <silent> <leader>/ :set invhlsearch<CR>
@@ -165,12 +185,17 @@ nnoremap <expr> k v:count ? (v:count > 5 ? "m'" . v:count : '') . 'k' : 'gk'
 " Visual shifting (does not exit Visual mode)
 vnoremap < <gv
 vnoremap > >gv
+
+" Map <Leader>ff to display all lines with keyword under cursor
+" and ask which one to jump to
+nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+
 " tab related {
 " TODO make wrap
 noremap <Leader>te :+tabmove<CR>
 noremap <Leader>tb :-tabmove<CR>
 
-" tag in new tab/zoom
+" tag in new tab
 " https://stackoverflow.com/questions/6069279/vim-open-tag-in-new-tab
 nnoremap <silent><Leader>t<C-]> <C-w><C-]><C-w>T
 
@@ -203,6 +228,12 @@ augroup my_cmdline_window
     autocmd!
     autocmd CmdWinEnter * nno  <buffer><expr><nowait>  <c-c>  '<c-c>'.timer_start(0, {-> execute('redraw')})[-1]
 augroup END
+
+augroup foldmethods
+    autocmd!
+    autocmd BufNewFile,BufRead *.py set foldmethod=indent
+augroup END
+
 " end autocmds }
 
 " Mimic Emacs Line Editing in Insert/command Mode {
@@ -234,7 +265,26 @@ if has('user_commands')
     command! -bang Qa qa<bang>
 endif
 " end Stupid shift key fixes }
-"
+
+" statusline {
+if has('statusline')
+"The value of this option influences when the last window will have a
+"status line:
+    "0: never
+    "1: only if there are at least two windows
+    "2: always
+set laststatus=2
+
+" Broken down into easily includeable segments
+set statusline=%<%f\                     " Filename
+set statusline+=%w%h%m%r                 " Options
+set statusline+=%{fugitive#statusline()} " Git Hotness
+set statusline+=\ [%{&ff}/%Y]            " Filetype
+set statusline+=\ [%{getcwd()}]          " Current dir
+set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
+endif
+" end statusline }
+
 " end basic }
 
 " plugin mappings {
@@ -300,6 +350,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 "
 " Use K to show documentation in preview window
+" TOOD use preview window not coc hover
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
@@ -349,7 +400,6 @@ omap ac <Plug>(coc-classobj-a)
 "let g:NERDDefaultAlign = 'start'
 let g:NERDDefaultAlign = 'left'
 
-nnoremap <Leader>u :UndotreeToggle<CR>
 " If undotree is opened, it is likely one wants to interact with it.
 let g:undotree_SetFocusWhenToggle=1
 " end nerdcommenter }
@@ -383,7 +433,9 @@ nnoremap <leader>ee :NERDTreeFind<CR>
 " snippets {
 set runtimepath+=~/.vim/UltiSnips
 set runtimepath+=~/.config/nvim/UltiSnips
-let g:UltiSnipsSnippetDirectories=['~/.vim/UltiSnips/', '~/.vim/UltiSnips/javascript/', '~/.config/nvim/plugged/vim-snippets/UltiSnips']
+" TODO ultisnips is confused about .vim path vs .config/nvim path and was
+" inserting .vim path as suffix which broke :UltiSnipsEdit
+"let g:UltiSnipsSnippetDirectories=['~/.vim/UltiSnips/', '~/.vim/UltiSnips/javascript/', '~/.config/nvim/plugged/vim-snippets/UltiSnips']
 
 " end snippets }
 
@@ -544,5 +596,12 @@ nnoremap <leader>j :call eskk#toggle()<CR>
 let g:eskk#no_default_mappings = 1
 imap <C-j><C-j> <Plug>(eskk:toggle)
 " end }
-"
+
+
+" misc {
+
+nnoremap <Leader>u :UndotreeToggle<CR>
+
+" end misc {
+
 " end plugin mappings }
