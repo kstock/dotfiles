@@ -11,6 +11,7 @@ call plug#begin('~/.config/nvim/plugged')
     " TODO investigate
     Plug 'Xuyuanp/nerdtree-git-plugin'
 
+    " linting
     Plug 'w0rp/ale'
 
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -29,7 +30,10 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'scrooloose/nerdcommenter'
 
 
+    " replaces surround
     Plug 'machakann/vim-sandwich'
+
+    " session management
     Plug 'tpope/vim-obsession'
 
     " git related
@@ -45,8 +49,10 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
 
+    " view marks
     Plug 'kshenoy/vim-signature'
 
+    " unix commands like Move
     Plug 'tpope/vim-eunuch'
 
     " cf for lsp support https://github.com/liuchengxu/vista.vim
@@ -58,6 +64,7 @@ call plug#begin('~/.config/nvim/plugged')
 
     Plug 'mattn/emmet-vim'
 
+    " replaces ack.vim
     Plug 'mhinz/vim-grepper'
 
     Plug 'janko/vim-test'
@@ -67,6 +74,7 @@ call plug#begin('~/.config/nvim/plugged')
     " cf vim-mundo
     Plug 'mbbill/undotree'
 
+    " japanese text input
     Plug 'tyru/eskk.vim'
 
     Plug 'tpope/vim-abolish'
@@ -124,8 +132,7 @@ set relativenumber
 set colorcolumn=80
 
 set list
-set listchars=tab:,.,trail:.,extends:#,nbsp:. " Highlight problematic  whitespace KYLE, colors were messed up in python
-"set listchars=trail:.",extends:#,nbsp:. " Highlight problematic  whitespace KYLE, colors were messed up in python
+set listchars=tab:,.,trail:.,extends:#,nbsp:. " Highlight problematic  whitespace
 
 set tags^=./.git/tags;
 
@@ -136,10 +143,13 @@ colorscheme solarized
 " default is 4000. in particular is nice for gitgutter
 set updatetime=100
 
+" TODO nonportable
 "let g:solarized_termcolors=256
 let g:solarized_termcolors=16
 
 
+" TODO nonportable
+" this is a venv created jus for neovim
 let g:python3_host_prog = '~/.virtualenvs/py3nvim/bin/python'
 " settings }
 
@@ -223,7 +233,10 @@ augroup setcwd
     autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
 augroup END
 
-"https://vi.stackexchange.com/questions/18177/how-to-force-redraw-when-returning-to-command-line-from-command-line-history-win?rq=1
+" https://vi.stackexchange.com/questions/18177/how-to-force-redraw-when-returning-to-command-line-from-command-line-history-win?rq=1
+" if in command mode you do <C-f> to use edit command mode, then you <C-c> to
+" exit editing, by default the history will stay visable in an annoying extra
+" split. this autoremoves it
 augroup my_cmdline_window
     autocmd!
     autocmd CmdWinEnter * nno  <buffer><expr><nowait>  <c-c>  '<c-c>'.timer_start(0, {-> execute('redraw')})[-1]
@@ -301,10 +314,11 @@ map <leader>pf :CtrlP<CR>
 map <leader>pb :CtrlPBuffer<CR>
 map <leader>pT :CtrlPTag<CR>
 map <leader>pt :CtrlPBufTag<CR>
-map <leader>pm :CtrlPMark<CR>
 map <leader>pl :CtrlPLine<CR>
 map <leader>pu :CtrlPUndo<CR>
 map <leader>pc :CtrlPChangeAll<CR>
+map <leader>pm :CtrlPMark<CR>
+" note: CtrlPMark requires plugin
 " }
 
 " ale linting fixing {
@@ -339,6 +353,9 @@ nmap ]w <Plug>(ale_next_wrap_error) " ALENext -wrap -error
 
 nmap [W <Plug>(ale_previous_wrap)
 nmap ]W <Plug>(ale_next_wrap)
+" TODO consider using ]W for only warnings and just use lnext for errors and warnings
+" <Plug>(ale_next_wrap_warning) - ALENext -wrap -warning
+
 " end ale }
 
 " coc {
@@ -406,26 +423,24 @@ let g:undotree_SetFocusWhenToggle=1
 
 
 " NerdTree {
-    let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr', '__pycache__']
 
-    let NERDTreeShowBookmarks=1
-    " never change cwd
-    let NERDTreeChDirMode=0
+let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr', '__pycache__']
 
-    " Closes after opening a file. default is 0
-    let NERDTreeQuitOnOpen=1
+let NERDTreeShowBookmarks=1
+" never change cwd
+let NERDTreeChDirMode=0
 
-    " single click opens directory isnt of 2 clicks
-    let NERDTreeMouseMode=2
+" Closes after opening a file. default is 0
+let NERDTreeQuitOnOpen=1
 
-    " show hidden files
-    let NERDTreeShowHidden=1
+" single click opens directory isnt of 2 clicks
+let NERDTreeMouseMode=2
 
-    let g:nerdtree_tabs_open_on_gui_startup=0
-" }
-"
+" show hidden files
+let NERDTreeShowHidden=1
 
-" nerdtree {
+let g:nerdtree_tabs_open_on_gui_startup=0
+
 nnoremap <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
 nnoremap <leader>ee :NERDTreeFind<CR>
 " end nerdtree }
