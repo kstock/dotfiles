@@ -137,6 +137,8 @@ set relativenumber
 
 " vertical line at 80 chars
 set colorcolumn=80
+set cursorline
+set cursorcolumn
 
 set list
 set listchars=tab:,.,trail:.,extends:#,nbsp:. " Highlight problematic  whitespace
@@ -252,6 +254,7 @@ augroup END
 augroup foldmethods
     autocmd!
     autocmd BufNewFile,BufRead *.py set foldmethod=indent
+    autocmd BufNewFile,BufRead *.page set foldmethod=indent
 augroup END
 
 " end autocmds }
@@ -526,14 +529,48 @@ omap ah <Plug>(GitGutterTextObjectOuterPending)
 xmap ih <Plug>(GitGutterTextObjectInnerVisual)
 xmap ah <Plug>(GitGutterTextObjectOuterVisual)
 
-nmap [h <Plug>(GitGutterPrevHunk)
-nmap ]h <Plug>(GitGutterNextHunk)
+" dude doesn't want this in plugin for some reason!!
+" How to make GitGutter{Prev,Next}Hunk to wrap around? #260
+" https://github.com/airblade/vim-gitgutter/issues/260
+function! GitGutterPrevHunkWrap(count)
+  for i in range(1, a:count)
+    let line = line('.')
+    silent GitGutterPrevHunk
+    if line('.') == line
+      normal G
+      silent GitGutterPrevHunk
+      echo "wrapped"
+    endif
+  endfor
+endfunction
 
+function! GitGutterNextHunkWrap(count)
+  for i in range(1, a:count)
+    let line = line('.')
+    silent GitGutterNextHunk
+    if line('.') == line
+      normal 1G
+      silent GitGutterNextHunk
+      echo "wrapped"
+    endif
+  endfor
+endfunction
+
+command! -count=1 GitGutterPrevHunkWrap call GitGutterPrevHunkWrap(<count>)
+command! -count=1 GitGutterNextHunkWrap call GitGutterNextHunkWrap(<count>)
+
+nmap [h :GitGutterPrevHunkWrap<cr>
+nmap ]h :GitGutterNextHunkWrap<cr>
+"nmap [h <Plug>(GitGutterPrevHunk)
+"nmap ]h <Plug>(GitGutterNextHunk)
+
+nnoremap <silent> <leader>Gq :GitGutterQuickFix<cr>:copen<cr>
 " end git gutter }
 
 " Fugitive {
 
 " grepper uses ,g so these less common commands use ,G
+" gitgutter uses ,Gq
 nnoremap <silent> <leader>Gs :Gstatus<cr>
 nnoremap <silent> <leader>Gl :Glog<cr>
 nnoremap <silent> <leader>Gb :Gblame<cr>
@@ -618,11 +655,34 @@ nnoremap <leader>j :call eskk#toggle()<CR>
 let g:eskk#no_default_mappings = 1
 imap <C-j><C-j> <Plug>(eskk:toggle)
 " end }
+" easy-align {
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
 
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+" end easy-align }
 
+" signature {
+" solution to signature column being hard to see
+" https://github.com/kshenoy/vim-signature/issues/116
+hi SignColumn guibg=none
+hi SignColumn ctermbg=none
+hi SignatureMarkText ctermbg=none
+" signature }
 " misc {
 
 nnoremap <Leader>u :UndotreeToggle<CR>
+
+
+" unimpaired makes [e do "exchange"
+" this allows vertical visual selection moving
+" analogous to >gv mapping
+" TODO should these be like this??? wasn't working not sure on parens
+"nnoremap [E <Plug>(unimpairedMoveUp)gv
+"nnoremap ]E <Plug>(unimpairedMoveSelectionDown)gv
+nnoremap [E [egv
+nnoremap ]E ]egv
 
 " end misc {
 
