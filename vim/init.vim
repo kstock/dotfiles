@@ -37,6 +37,7 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'tpope/vim-obsession'
 
     " git related
+    " cf vim-signify
     Plug 'airblade/vim-gitgutter'
     Plug 'rhysd/git-messenger.vim'
     Plug 'tpope/vim-fugitive'
@@ -81,7 +82,13 @@ call plug#begin('~/.config/nvim/plugged')
 
     " cf repmo and see if ;, suffice
     "use space to repeat motions!
-    "Plug 'spiiph/vim-space'
+    Plug 'spiiph/vim-space'
+
+    Plug 'coderifous/textobj-word-column.vim'
+    Plug 'wellle/targets.vim'
+
+    Plug 'junegunn/vim-easy-align'
+    Plug 'chrisbra/csv.vim'
 
 call plug#end()
 " end plug }
