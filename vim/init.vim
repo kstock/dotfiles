@@ -1,8 +1,10 @@
 " Modeline and Notes {
-" vim: set foldmarker={,} foldlevel=0 foldmethod=marker:
+" vim: set foldmarker={,} foldlevel=1 foldmethod=marker:
 " }
 "
 
+" plugins {
+"
 " plug begin {
 call plug#begin('~/.config/nvim/plugged')
 
@@ -92,6 +94,7 @@ call plug#begin('~/.config/nvim/plugged')
 
 call plug#end()
 " end plug }
+" end plugins }
 
 " basic {
 
@@ -117,6 +120,8 @@ set clipboard=unnamedplus
 
 " show existing tab with 4 spaces width
 set tabstop=4
+" delete tabstop many spaces on backspace
+set softtabstop=-1
 " when indenting with '>', use 4 spaces width
 set shiftwidth=4
 " On pressing tab, insert 4 spaces
@@ -424,8 +429,8 @@ omap ac <Plug>(coc-classobj-a)
 
 " nerdcommenter {
 " black formatter making commenting not reversible
-"let g:NERDDefaultAlign = 'start'
-let g:NERDDefaultAlign = 'left'
+let g:NERDDefaultAlign = 'start'
+"let g:NERDDefaultAlign = 'left'
 
 " If undotree is opened, it is likely one wants to interact with it.
 let g:undotree_SetFocusWhenToggle=1
@@ -684,6 +689,6 @@ nnoremap <Leader>u :UndotreeToggle<CR>
 nnoremap [E [egv
 nnoremap ]E ]egv
 
-" end misc {
+" end misc }
 
 " end plugin mappings }

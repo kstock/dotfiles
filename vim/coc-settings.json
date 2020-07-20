@@ -1,5 +1,7 @@
 {
 	"suggest.enablePreview":true
+    // turn off floating windows for documenttion
+	//,"suggest.floatEnable":false
 
 	,"rust.clippy_preference":"off"
 
@@ -25,5 +27,24 @@
     ,"yaml.schemas": {
         "kubernetes": "/*.yaml"
 }
-
+,"languageserver": {
+  "haskell": {
+    "command": "hie-wrapper",
+    "args": ["--lsp"],
+    "rootPatterns": [
+      "stack.yaml",
+      "cabal.config",
+      "package.yaml"
+    ],
+    "filetypes": [
+      "haskell",
+      "lhaskell"
+    ],
+    "initializationOptions": {
+      "languageServerHaskell": {
+        "hlintOn": true
+      }
+    }
+  }
+}
 }
