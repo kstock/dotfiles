@@ -1,0 +1,308 @@
+# Created by newuser for 5.0.7
+#zmodload zsh/zprof # uncomment bottom to profile
+
+
+
+export EDITOR=vim
+#export WORKON_HOME=~/.virtualenvs
+#source /usr/bin/virtualenvwrapper.sh
+export ZSH_DOTFILES_HOME="$HOME/dotfiles/kenvy/zsh"
+
+#export AWKPATH=$AWKPATH:$HOME/bin/awk/awk-libs 
+
+#export GRAPHITE_ROOT=/opt/graphite
+alias manawk-libs="less $HOME/bin/awk/awk-libs/README"
+
+#set history settings
+[[ -f "$ZSH_DOTFILES_HOME/history.zsh" ]] && source "$ZSH_DOTFILES_HOME/history.zsh"
+
+#run myutils to see descriptions of some functions
+# TODO clean up myutils
+[[ -f "$ZSH_DOTFILES_HOME/functions.zsh" ]] && source "$ZSH_DOTFILES_HOME/functions.zsh"
+
+[[ -f "$ZSH_DOTFILES_HOME/env.zsh" ]] && source "$ZSH_DOTFILES_HOME/env.zsh"
+
+[[ -f "$ZSH_DOTFILES_HOME/dircolors.256dark" ]] && eval "$(dircolors -b "$ZSH_DOTFILES_HOME/dircolors.256dark")"
+
+
+[[ -f "$ZSH_DOTFILES_HOME/vimwiki.zsh" ]] && source "$ZSH_DOTFILES_HOME/vimwiki.zsh"
+
+[[ -f "$ZSH_DOTFILES_HOME/themes/kyle.theme" ]] && source "$ZSH_DOTFILES_HOME/themes/kyle.theme"
+
+[[ -f "$ZSH_DOTFILES_HOME/bundles.zsh" ]] && source "$ZSH_DOTFILES_HOME/bundles.zsh" 
+
+[[ -f "$ZSH_DOTFILES_HOME/temper.zsh" ]] && source "$ZSH_DOTFILES_HOME/temper.zsh"
+
+export ZSH_KAUTOLOAD="$ZSH_DOTFILES_HOME/autoadd.zsh"
+#[[ -f "$ZSH_KAUTOLOAD" ]] && source "$ZSH_KAUTOLOAD"
+alias catautoadd="cat $ZSH_KAUTOLOAD"
+alias echoautoadd="echo $ZSH_KAUTOLOAD"
+function autoadd() {
+    MSG="$1"
+    echo "$MSG" >> "$ZSH_KAUTOLOAD"
+    echo "$MSG added to $ZSH_KAUTOLOAD"
+}
+
+
+export JAVA_HOME=/usr/lib/jvm/default/
+# export TASK_DATA=/usr/lib/jvm/default/
+
+
+
+#keybindings{{{
+
+bindkey '^[[A' up-line-or-search
+bindkey '^[[B' down-line-or-search
+
+#go back in autocomplete with shift tab
+bindkey '^[[Z' reverse-menu-complete
+
+# Incremental search is elite!
+bindkey -M vicmd "/" history-incremental-search-backward
+bindkey -M vicmd "?" history-incremental-search-forward
+
+#bash muscle memory
+bindkey -M viins '^r' history-incremental-search-backward
+bindkey -M vicmd '^r' history-incremental-search-backward
+
+bindkey -M viins "^p" history-beginning-search-backward
+bindkey -M viins "^n" history-beginning-search-forward
+
+bindkey -M viins "^a" beginning-of-line
+bindkey -M vicmd "^a" beginning-of-line
+
+bindkey -M viins "^e" end-of-line
+bindkey -M vicmd "^e" end-of-line
+
+bindkey -M viins "^k" kill-line
+bindkey -M vicmd "^k" kill-line
+
+
+bindkey -M viins "^w" backward-kill-word
+bindkey -M vicmd "^w" backward-kill-word
+
+# # Search based on what you typed in already
+bindkey -M vicmd "//" history-beginning-search-backward
+bindkey -M vicmd "??" history-beginning-search-forward
+
+bindkey -M viins 'jj' vi-cmd-mode
+bindkey -M vicmd 'u' undo
+#keybindings}}}
+
+
+
+#buncha path stuff&options{{{
+
+# TODO colors handle
+#export TERM="screen-256color"
+#if [ -x /usr/bin/dircolors ]; then
+#    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(ddircolors -b)"
+#fi
+
+setopt EXTENDED_GLOB
+setopt numeric_glob_sort
+
+# TODO check on what is
+#for extended completions
+#https://github.com/zsh-users/zsh-completions
+#fpath=(~/plugins/zsh-completions/src $fpath)
+
+
+#settings specific/sensitive to specific machines
+[[ -f $ZSH_DOTFILES_HOME/aliases.zsh ]] && source $ZSH_DOTFILES_HOME/aliases.zsh
+
+# TODO move over what is useful
+#settings specific/sensitive to specific machines
+[[ -f $ZSH_DOTFILES_HOME/sensitive.zsh ]] && source $ZSH_DOTFILES_HOME/sensitive.zsh
+
+# TODO move over what is useful
+[[ -f $ZSH_DOTFILES_HOME/cov.zsh ]] && source $ZSH_DOTFILES_HOME/cov.zsh
+
+export PATH=$PATH:/home/kstock/.cabal/bin 
+
+if which ruby >/dev/null && which gem >/dev/null; then
+    PATH="$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH"
+fi
+
+
+#export GOPATH=~/bin/go
+#export PATH=$PATH:$GOPATH/bin
+
+# TODO move over what is useful
+#aliases and functions to manage mpd+mpdcron+beets
+[[ -f ~/workspace/mu/music.zsh ]] && source ~/workspace/mu/music.zsh
+ 
+#buncha path stuff}}}
+
+
+
+#widget+keybinds{{{
+# TODO plugin setu
+#https://github.com/zsh-users/zaw
+# source /home/kstock/plugins/zaw/zaw.zsh
+# bindkey -M filterselect '^E' accept-search
+# bindkey '^f' zaw-history
+# 
+# source /home/kstock/.oh-my-zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# 
+# source /home/kstock/.oh-my-zsh/plugins/history-substring-search/history-substring-search.zsh
+# 
+# # bind k and j for VI mode
+# bindkey -M vicmd 'k' history-substring-search-up
+# bindkey -M vicmd 'j' history-substring-search-down
+# 
+# source /home/kstock/.oh-my-zsh/plugins/zsh-fuzzy-match/fuzzy-match.zsh
+
+# bindkey '^n' infer-next-history
+
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd v edit-command-line
+#bindkey '\C-x\C-e' edit-command-line
+
+# bindkey -M menuselect '\C-o' accept-and-menu-complete
+
+bindkey '^g' _expand_alias
+
+# use ctrl+t to toggle autosuggestions(hopefully this wont be needed as
+# zsh-autosuggestions is designed to be unobtrusive)
+#bindkey '^T' autosuggest-toggle
+# Accept suggestions without leaving insert mode
+#bindkey '^f' vi-forward-word
+# or
+#bindkey '^f' vi-forward-blank-word
+
+
+# can only load once a day if become too slow
+autoload -U compinit
+compinit
+
+zstyle ':completion:::::' completer _complete _approximate
+zstyle ':completion:*' menu select=2
+zstyle ":completion:*:descriptions" format "%B%d%b"
+
+#zstyle ':completion:*:approximate:*' max-errors 2
+# or to have a better heuristic, by allowing one error per 3 character typed
+zstyle ':completion:*:approximate:*' max-errors 'reply=( $(( ($#PREFIX+$#SUFFIX)/3 )) numeric )'
+
+bindkey '^X^A' fasd-complete    # C-x C-a to do fasd-complete (fils and directories)
+bindkey '^X^F' fasd-complete-f  # C-x C-f to do fasd-complete-f (only files)
+bindkey '^X^D' fasd-complete-d  # C-x C-d to do fasd-complete-d (only directories)
+
+
+autoload incarg
+zle -N incarg
+
+vi-inc-number(){
+    NUMERIC=1
+    zle incarg
+}
+
+vi-dec-number(){
+    NUMERIC=-1
+    zle incarg
+}
+
+zle -N vi-dec-number
+zle -N vi-inc-number
+
+bindkey '^x^x' vi-dec-number
+bindkey '^x^a' vi-inc-number
+
+#bindkey '^h' run-help
+
+source ~/bin/hhighlighter/h.sh
+alias -g HH=' | h '
+
+
+#source <(envoy -p)
+
+
+
+
+
+setopt alwaystoend
+setopt autocd
+#setopt autopushd
+setopt cdablevars
+#setopt completeinword
+#setopt extendedglob
+#setopt extendedhistory
+#setopt noflowcontrol
+#setopt histexpiredupsfirst
+#setopt histignoredups
+#setopt histignorespace
+#setopt histnostore
+#setopt histverify
+#setopt incappendhistory
+#setopt interactive
+#setopt kshglob
+#setopt login
+#setopt longlistjobs
+#setopt monitor
+#setopt numericglobsort
+#setopt promptsubst
+#setopt pushdignoredups
+#setopt pushdminus
+#setopt sharehistory
+#setopt shinstdin
+#setopt zle
+#
+#workon py2
+ 
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# if in tmux want open in py2 virtualenv more often than not so make default
+#if [[ $TMUX ]]; then
+#	workon py2
+#fi
+
+
+
+
+# Set up Node Version Manager
+export NVM_DIR="$HOME/.nvm"                            # You can change this if you want.
+export NVM_SOURCE="/usr/share/nvm"                     # The AUR package installs it to here.
+[ -s "$NVM_SOURCE/nvm.sh" ] && . "$NVM_SOURCE/nvm.sh"  # Load NVM
+
+
+
+alias mute="amixer set Master toggle"
+alias unmute="amixer set Master toggle"
+
+
+PATH="$HOME/.node_modules/bin:$PATH"
+export npm_config_prefix=~/.node_modules
+
+export PIPENV_VENV_IN_PROJECT=1
+#zprof
+#
+alias vim_naked='vim -u NONE'
+
+
+export DISABLE_AUTO_TITLE="true"
+
+
+alias gg="git log --graph --pretty=format:'%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset' --abbrev-commit --date=relative"
+alias gg1p="gg --first-parent"
+alias ggs="gg --stat"
+alias ggs1p="ggs --first-parent"
+
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+
+
+stripansi(){
+    # https://superuser.com/questions/380772/removing-ansi-color-codes-from-text-stream
+    perl -pe '
+      s/\e\[[\x30-\x3f]*[\x20-\x2f]*[\x40-\x7e]//g;
+      s/\e[PX^_].*?\e\\//g;
+      s/\e\][^\a]*(?:\a|\e\\)//g;
+      s/\e[\[\]A-Z\\^_@]//g;'
+}
+alias -g SA=' | stripansi'
+
+
+PATH="$PATH:/home/kstock/.config/nvim/plugged/ale/test/command_callback/vim_fixtures/node_modules/.bin"
