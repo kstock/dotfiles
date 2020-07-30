@@ -1,16 +1,14 @@
-# Created by newuser for 5.0.7
+# shellcheck disable=SC1073,SC2148
+# Modeline and Notes {
+# vim: set foldmarker={,} foldlevel=1 foldmethod=marker:
+# }
+#
 #zmodload zsh/zprof # uncomment bottom to profile
 
-
-
 export EDITOR=vim
-#export WORKON_HOME=~/.virtualenvs
-#source /usr/bin/virtualenvwrapper.sh
 export ZSH_DOTFILES_HOME="$HOME/dotfiles/kenvy/zsh"
 
-#export AWKPATH=$AWKPATH:$HOME/bin/awk/awk-libs 
-
-#export GRAPHITE_ROOT=/opt/graphite
+# git clone git@github.com:e36freak/awk-libs.git
 alias manawk-libs="less $HOME/bin/awk/awk-libs/README"
 
 #set history settings
@@ -120,6 +118,7 @@ setopt numeric_glob_sort
 
 export PATH=$PATH:/home/kstock/.cabal/bin 
 
+# gem list
 if which ruby >/dev/null && which gem >/dev/null; then
     PATH="$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH"
 fi
@@ -160,6 +159,8 @@ zle -N edit-command-line
 bindkey -M vicmd v edit-command-line
 #bindkey '\C-x\C-e' edit-command-line
 
+# https://web.cs.elte.hu/local/texinfo/zsh/zsh_31.html
+# In a menu completion, insert the current completion into the buffer, and advance to the next possible completion.
 # bindkey -M menuselect '\C-o' accept-and-menu-complete
 
 bindkey '^g' _expand_alias
@@ -177,6 +178,8 @@ bindkey '^g' _expand_alias
 autoload -U compinit
 compinit
 
+# # TODO
+# https://github.com/lincheney/fzf-tab-completion
 zstyle ':completion:::::' completer _complete _approximate
 zstyle ':completion:*' menu select=2
 zstyle ":completion:*:descriptions" format "%B%d%b"
@@ -221,7 +224,10 @@ alias -g HH=' | h '
 
 
 
+# http://zsh.sourceforge.net/Doc/Release/Options-Index.html
+# cursor is moved to the end of the word if either a single match is inserted or menu completion is performed
 setopt alwaystoend
+# cd without typing cd if command is a directory in cwd
 setopt autocd
 #setopt autopushd
 setopt cdablevars
@@ -278,9 +284,9 @@ export npm_config_prefix=~/.node_modules
 export PIPENV_VENV_IN_PROJECT=1
 #zprof
 #
-alias vim_naked='vim -u NONE'
 
 
+#https://stackoverflow.com/questions/38543763/tmux-will-not-stop-auto-renaming-windows
 export DISABLE_AUTO_TITLE="true"
 
 
@@ -304,5 +310,12 @@ stripansi(){
 }
 alias -g SA=' | stripansi'
 
+alias vim_naked='vim -u NONE'
+alias zsh_naked='zsh --no-rcs'
 
+#export GRAPHITE_ROOT=/opt/graphite
+#export WORKON_HOME=~/.virtualenvs
+#source /usr/bin/virtualenvwrapper.sh
+#export AWKPATH=$AWKPATH:$HOME/bin/awk/awk-libs 
+# vim-language-server lsp
 PATH="$PATH:/home/kstock/.config/nvim/plugged/ale/test/command_callback/vim_fixtures/node_modules/.bin"
