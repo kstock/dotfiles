@@ -92,6 +92,8 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'junegunn/vim-easy-align'
     Plug 'chrisbra/csv.vim'
 
+    Plug 'svermeulen/vim-macrobatics'
+
 call plug#end()
 " end plug }
 " end plugins }
@@ -696,6 +698,42 @@ hi SignColumn guibg=none
 hi SignColumn ctermbg=none
 hi SignatureMarkText ctermbg=none
 " signature }
+
+" macrobatics {
+" TODO
+" https://github.com/svermeulen/vim-macrobatics
+" worried remap default will fuck up muscle memory when without config
+" also breaks 'q:'
+" Use <nowait> to override the default bindings which wait for another key press
+nmap <nowait> <leader>q <plug>(Mac_Play)
+nmap <nowait> <leader>gq <plug>(Mac_RecordNew)
+
+nmap <leader>mh :DisplayMacroHistory<cr>
+
+" [m is taken by method nav
+nmap <leader>[m <plug>(Mac_RotateBack)
+nmap <leader>]m <plug>(Mac_RotateForward)
+
+nmap <leader>ma <plug>(Mac_Append)
+nmap <leader>mp <plug>(Mac_Prepend)
+
+nmap <leader>mng <plug>(Mac_NameCurrentMacro)
+nmap <leader>mnf <plug>(Mac_NameCurrentMacroForFileType)
+nmap <leader>mns <plug>(Mac_NameCurrentMacroForCurrentSession)
+
+" requires fzf.vim or vim-clap, no ctrlp support as of 2020-07-30
+nmap <leader>mo <plug>(Mac_SearchForNamedMacroAndOverwrite)
+nmap <leader>mr <plug>(Mac_SearchForNamedMacroAndRename)
+nmap <leader>md <plug>(Mac_SearchForNamedMacroAndDelete)
+nmap <leader>me <plug>(Mac_SearchForNamedMacroAndPlay)
+nmap <leader>ms <plug>(Mac_SearchForNamedMacroAndSelect)
+
+" mc = macro copy
+"then "x<leader>mc where x is the register you want to associate with the active macro.
+nmap <leader>mc <plug>(Mac_CopyCurrentMacroToRegister)
+
+" macrobatics }
+"
 " misc {
 
 nnoremap <Leader>u :UndotreeToggle<CR>
