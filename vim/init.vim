@@ -190,13 +190,25 @@ map <leader>es :sp %%
 map <leader>ev :vsp %%
 map <leader>et :tabe %%
 
+map <leader>eW :e<space>
+map <leader>eS :sp<space>
+map <leader>eV :vsp<space>
+map <leader>eT :tabe<space>
+
 
 " easy save
-map <leader>w :w<CR>
-map <leader>W :wa<CR>
+noremap <leader>w :w<CR>
+noremap <leader>W :wa<CR>
+
+noremap <leader>sp :sp<CR>
+noremap <leader>vs :vs<CR>
 
 " select last paste in visual mode
 nnoremap <expr> gb '`[' . strpart(getregtype(), 0, 1) . '`]'
+
+" jump to parent fold. closes current fold, goes up, opens fold, goes down
+" sometimes works better than [z
+nnoremap zK zakjzak
 
 " Toggle search highlighting
 nmap <silent> <leader>/ :set invhlsearch<CR>
@@ -318,6 +330,15 @@ endif
 " plugin mappings {
 
 " ctrlp {
+
+let g:ctrlp_switch_buffer = 'et'
+"  e - jump when <cr> is pressed, but only to windows in the current tab.
+"  t - jump when <c-t> is pressed, but only to windows in another tab.
+"  v - like "e", but jump when <c-v> is pressed.
+"  h - like "e", but jump when <c-x> is pressed.
+"  E, T, V, H - like "e", "t", "v", and "h", but jump to windows anywhere.
+"  0 or <empty> - disable this feature.
+
 let g:ctrlp_custom_ignore = {
   \ 'dir': '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$',
   \ 'file': '\v\.(exe|so|dll|pyc)$',
