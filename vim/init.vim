@@ -374,6 +374,8 @@ if g:fuzzy_finder_plugin ==# 'ctrlp'
 elseif g:fuzzy_finder_plugin ==# 'clap'
 "   clap {
 
+    " TODO get this to work? , 'ctrl-D': 'bdel'
+    let g:clap_open_action={ 'ctrl-t': 'tab split', 'ctrl-x': 'split', 'ctrl-v': 'vsplit'}
 "   ctrlp compat {
 "   same missing different
 "
@@ -384,14 +386,13 @@ elseif g:fuzzy_finder_plugin ==# 'clap'
     map <leader>pT :Clap prog_tags<CR>
     map <leader>pt :Clap tags<CR>
     map <leader>pm :Clap marks<CR>
+    map <leader>pl :Clap blines<CR>
+    map <leader>pL :Clap loclist<CR>
 
     " missing
     " map <leader>pu :Clap <CR> " TODO no undolist?
 "    map <leader>pc :Clap <CR> " TODO no changelist?
 "
-    " different. loclist takes pl namespace
-    map <leader>pL :Clap blines<CR>
-    map <leader>pl :Clap loclist<CR>
 "   ctrlp compat }
     " TODO several other related: bcommits,commits
     map <leader>pg :Clap git_diff_files <CR>
