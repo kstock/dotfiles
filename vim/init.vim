@@ -23,8 +23,12 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'tpope/vim-projectionist'
     Plug 'tpope/vim-unimpaired'
 
-    " cf fzf.vim
-    Plug 'kien/ctrlp.vim'
+    " fuzzy finders
+    " macrobatics does not work with ctrlp
+    " TODO cf fzf.vim
+    " Plug 'kien/ctrlp.vim'
+    Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+
     " TODO
     "Plug 'ivan-cukic/vim-ctrlp-switcher'
     Plug 'mattn/ctrlp-mark'
@@ -331,33 +335,86 @@ endif
 
 " plugin mappings {
 
+" fuzzy finders switch {
+" set this var to switch fuzzy finder in use
+" have used ctrlp for years and want to keep muscle memory through diff plugins
+
+"let g:fuzzy_finder_plugin = "ctrp"
+let g:fuzzy_finder_plugin = 'clap'
+
+
+if g:fuzzy_finder_plugin ==# 'ctrlp'
 " ctrlp {
+    let g:ctrlp_switch_buffer = 'et'
+    "  e - jump when <cr> is pressed, but only to windows in the current tab.
+    "  t - jump when <c-t> is pressed, but only to windows in another tab.
+    "  v - like "e", but jump when <c-v> is pressed.
+    "  h - like "e", but jump when <c-x> is pressed.
+    "  E, T, V, H - like "e", "t", "v", and "h", but jump to windows anywhere.
+    "  0 or <empty> - disable this feature.
 
-let g:ctrlp_switch_buffer = 'et'
-"  e - jump when <cr> is pressed, but only to windows in the current tab.
-"  t - jump when <c-t> is pressed, but only to windows in another tab.
-"  v - like "e", but jump when <c-v> is pressed.
-"  h - like "e", but jump when <c-x> is pressed.
-"  E, T, V, H - like "e", "t", "v", and "h", but jump to windows anywhere.
-"  0 or <empty> - disable this feature.
+    let g:ctrlp_custom_ignore = {
+      \ 'dir': '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$',
+      \ 'file': '\v\.(exe|so|dll|pyc)$',
+      \ }
+    let g:ctrlp_cmd = 'CtrlPMRU'
+    map <leader>pp :CtrlPMRU<CR>
+    map <leader>pf :CtrlP<CR>
+    map <leader>pb :CtrlPBuffer<CR>
+    map <leader>pT :CtrlPTag<CR>
+    map <leader>pt :CtrlPBufTag<CR>
+    map <leader>pl :CtrlPLine<CR>
+    map <leader>pu :CtrlPUndo<CR>
+    map <leader>pc :CtrlPChangeAll<CR>
 
-let g:ctrlp_custom_ignore = {
-  \ 'dir': '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$',
-  \ 'file': '\v\.(exe|so|dll|pyc)$',
-  \ }
+    " note: CtrlPMark requires plugin
+    map <leader>pm :CtrlPMark<CR>
+"   ctrlp end }
 
-let g:ctrlp_cmd = 'CtrlPMRU'
-map <leader>pp :CtrlPMRU<CR>
-map <leader>pf :CtrlP<CR>
-map <leader>pb :CtrlPBuffer<CR>
-map <leader>pT :CtrlPTag<CR>
-map <leader>pt :CtrlPBufTag<CR>
-map <leader>pl :CtrlPLine<CR>
-map <leader>pu :CtrlPUndo<CR>
-map <leader>pc :CtrlPChangeAll<CR>
-map <leader>pm :CtrlPMark<CR>
-" note: CtrlPMark requires plugin
-" }
+elseif g:fuzzy_finder_plugin ==# 'clap'
+"   clap {
+
+"   ctrlp compat {
+"   same missing different
+"
+    "same
+    map <leader>pp :Clap history<CR>
+    map <leader>pf :Clap files<CR>
+    map <leader>pb :Clap buffers<CR>
+    map <leader>pT :Clap prog_tags<CR>
+    map <leader>pt :Clap tags<CR>
+    map <leader>pm :Clap marks<CR>
+
+    " missing
+    " map <leader>pu :Clap <CR> " TODO no undolist?
+"    map <leader>pc :Clap <CR> " TODO no changelist?
+"
+    " different. loclist takes pl namespace
+    map <leader>pL :Clap blines<CR>
+    map <leader>pl :Clap loclist<CR>
+"   ctrlp compat }
+    " TODO several other related: bcommits,commits
+    map <leader>pg :Clap git_diff_files <CR>
+    map <leader>pG :Clap git_files <CR>
+    map <leader>pj :Clap jumps<CR>
+    map <leader>pq :Clap quickfix<CR>
+    map <leader>pw :Clap windows<CR>
+    map <leader>pr :Clap registers<CR>
+    map <leader>pM :Clap maps<CR>
+    map <leader>pP :Clap providers<CR>
+    map <leader>pF :Clap filer<CR>
+    map <leader>py :Clap yanks<CR>
+    map <leader>ph :Clap help_tags <CR>
+    map <leader>ps :Clap search_history<CR>
+    map <leader>p :Clap <CR>
+"
+    " no pc but still leaving namespace for now
+    map <leader>pC :Clap commits <CR>
+
+"   clap end }
+endif
+
+" fuzzy end }
 
 " ale linting fixing {
 " NOTE use :ALEINFO to make sure that you are using pylint from venv
