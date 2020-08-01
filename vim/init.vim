@@ -836,11 +836,11 @@ nnoremap <Leader>u :UndotreeToggle<CR>
 " unimpaired makes [e do "exchange"
 " this allows vertical visual selection moving
 " analogous to >gv mapping
-" TODO should these be like this??? wasn't working not sure on parens
+" TODO should these be like this??? wasn't working not sure on parens. noremap?
 "nnoremap [E <Plug>(unimpairedMoveUp)gv
 "nnoremap ]E <Plug>(unimpairedMoveSelectionDown)gv
-nnoremap [E [egv
-nnoremap ]E ]egv
+vmap [E [egv
+vmap ]E ]egv
 
 " end misc }
 
