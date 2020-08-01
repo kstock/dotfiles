@@ -61,9 +61,8 @@
 
 # https://docs.ctags.io/en/latest/man/ctags-optlib.7.html#ctags-optlib-7
 --kinddef-vim=s,section,marker sections
---kinddef-vim=e,endsection,end marker sections
 --regex-vim=/^" (.*)\{$/\1/s,section/{scope=push}
---regex-vim=/^" (.*)\}$/\1/e,endsection/{scope=pop}{placeholder}
+--regex-vim=/^" (.*)\}$///{scope=pop}{placeholder}
 
 #--langdef=Clojure
 #--langmap=Clojure:.clj
