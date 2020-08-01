@@ -97,6 +97,7 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'chrisbra/csv.vim'
 
     Plug 'svermeulen/vim-macrobatics'
+    Plug 'junegunn/vim-peekaboo'
 
 call plug#end()
 " end plug }
