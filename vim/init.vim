@@ -62,8 +62,6 @@ call plug#begin('~/.config/nvim/plugged')
     " unix commands like Move
     Plug 'tpope/vim-eunuch'
 
-    " cf for lsp support https://github.com/liuchengxu/vista.vim
-    Plug 'majutsushi/tagbar'
 
 "    Plug 'ryanoasis/vim-devicons'
     Plug 'leafgarland/typescript-vim'
@@ -76,7 +74,10 @@ call plug#begin('~/.config/nvim/plugged')
 
     Plug 'janko/vim-test'
 
-    Plug 'ludovicchabant/vim-gutentags'
+"    Plug 'ludovicchabant/vim-gutentags'
+    " cf for lsp support https://github.com/liuchengxu/vista.vim
+"    Plug 'majutsushi/tagbar'
+    Plug 'liuchengxu/vista.vim'
 
     " cf vim-mundo
     Plug 'mbbill/undotree'
@@ -115,7 +116,7 @@ if has('persistent_undo')
     set undolevels=1000         " Maximum number of changes that can be undone
     set undoreload=10000        " Maximum number lines to save for undo on a buffer reload
 endif
-" }
+" end history }
 " settings {
 "
 let mapleader = ','
@@ -384,7 +385,7 @@ elseif g:fuzzy_finder_plugin ==# 'clap'
     map <leader>pp :Clap history<CR>
     map <leader>pf :Clap files<CR>
     map <leader>pb :Clap buffers<CR>
-    map <leader>pT :Clap prog_tags<CR>
+    map <leader>pT :Clap proj_tags<CR>
     map <leader>pt :Clap tags<CR>
     map <leader>pm :Clap marks<CR>
     map <leader>pl :Clap blines<CR>
@@ -552,16 +553,42 @@ set runtimepath+=~/.config/nvim/UltiSnips
 " end snippets }
 
 " tag related {
-"
-"Open the Tagbar window, jump to it and close it on tag selection. This is
+" choose tag plugin {
+"let g:chosen_tag_prog = 'tagbar gutentags'
+let g:chosen_tag_prog = 'vista'
+if g:chosen_tag_prog ==# 'vista'
+" chose vista {
+
+" toggle vista
+nnoremap  <leader>tt :Vista!!<CR>
+
+" copied from ~/.config/nvim/plugged/vista.vim/autoload/vista/types/uctags/vim.vim
+" then section line was added
+let s:vista_custom_vim_types = {}
+let s:vista_custom_vim_types.lang = 'vim'
+let s:vista_custom_vim_types.kinds = {
+    \ 'n': {'long' : 'vimball filenames',  'fold' : 0, 'stl' : 1},
+    \ 'v': {'long' : 'variables',          'fold' : 1, 'stl' : 0},
+    \ 'f': {'long' : 'functions',          'fold' : 0, 'stl' : 1},
+    \ 'a': {'long' : 'autocommand groups', 'fold' : 1, 'stl' : 1},
+    \ 'c': {'long' : 'commands',           'fold' : 0, 'stl' : 0},
+    \ 'm': {'long' : 'maps',               'fold' : 1, 'stl' : 0},
+    \ 's': {'long' : 'section',            'fold' : 0, 'stl' : 0}
+    \ }
+let g:vista#types#uctags#vim# = s:vista_custom_vim_types
+" chose vista end }
+
+elseif g:fuzzy_finder_plugin ==# 'tagbar gutentags'
+"   chose tagbar gutentags {
+" https://github.com/ludovicchabant/vim-gutentags/blob/master/doc/gutentags.txt
+" https://github.com/majutsushi/tagbar/blob/master/doc/tagbar.txt
+
+":TagbarOpenAutoClose opens the Tagbar window, jump to it and close it on tag selection. This is
 "an alias for ":TagbarOpen fjc".
 nnoremap  <leader>tt :TagbarOpenAutoClose<CR>
-
 let g:gutentags_ctags_options_file='~/.ctags'
 let g:gutentags_ctags_tagfile='.git/tags'
 "let g:gutentags_ctags_tagfile="tags"
-"
-"
 " copied from /home/kstock/.config/nvim/plugged/tagbar/autoload/tagbar/types/ctags.vim
 " then added section!
 " stl is for statusline
@@ -601,6 +628,14 @@ let g:tagbar_type_typescript = {
                                   \ ],
                                   \ 'sort' : 0
                                 \ }
+"
+"
+"
+"   chose tagbar gutentags }
+endif
+
+" choose tag plugin end }
+
 " end tag related }
 
 " git related {
