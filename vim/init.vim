@@ -414,6 +414,11 @@ elseif g:fuzzy_finder_plugin ==# 'clap'
     " no pc but still leaving namespace for now
     map <leader>pC :Clap commits <CR>
 
+" `:Clap quick_open` to open some dotfiles quickly.
+let g:clap_provider_quick_open = {
+      \ 'source': ['~/.config/nvim/init.vim', '~/.zshrc', '~/.tmux.conf'],
+      \ 'sink': 'e',
+      \ }
 "   clap end }
 endif
 
