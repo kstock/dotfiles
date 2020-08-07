@@ -257,6 +257,25 @@ augroup numbertoggle
     autocmd!
     autocmd InsertLeave * set relativenumber
     autocmd InsertEnter   * set norelativenumber
+
+    " show line numbers in help
+    autocmd FileType help
+                         \ setlocal number |
+                         \ setlocal relativenumber
+augroup END
+
+
+augroup help_help
+    autocmd!
+    " https://vim.fandom.com/wiki/Learn_to_use_help
+    autocmd FileType help  nnoremap <buffer> <CR> <C-]>
+    autocmd FileType help  nnoremap <buffer> <BS> <C-T>
+    " jump options
+    autocmd FileType help  nnoremap <buffer> o /'\l\{2,\}'<CR>
+    autocmd FileType help  nnoremap <buffer> O ?'\l\{2,\}'<CR>
+    " jump subjects
+    autocmd FileType help  nnoremap <buffer> s /\|\zs\S\+\ze\|<CR>
+    autocmd FileType help  nnoremap <buffer> S ?\|\zs\S\+\ze\|<CR>
 augroup END
 
 " Always switch to the current file directory
