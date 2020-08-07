@@ -64,6 +64,13 @@
 --regex-vim=/^" (.*)\{$/\1/s,section/{scope=push}
 --regex-vim=/^" (.*)\}$///{scope=pop}{placeholder}
 
+# s taken by 'script files'
+--langdef=zsh
+--langmap=zsh:.zsh
+--kinddef-zsh=p,part,marker sections
+--regex-zsh=/^# (.*)\{$/\1/p,part/{scope=push}
+--regex-zsh=/^# (.*)\}$///{scope=pop}{placeholder}
+
 #--langdef=Clojure
 #--langmap=Clojure:.clj
 #--regex-clojure=/\([ \t]*create-ns[ \t]+([-[:alnum:]*+!_:\/.?]+)/\1/n,namespace/
