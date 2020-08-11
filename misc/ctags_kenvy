@@ -1,7 +1,8 @@
 --recurse=yes
+--excmd=number
 --tag-relative=yes
 
---map-TypeScript=+.tsx 
+--map-TypeScript=+.tsx
 
 --langdef=vimwiki
 --langmap=vimwiki:.page
