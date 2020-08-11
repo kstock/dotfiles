@@ -493,6 +493,7 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gR <Plug>(coc-rename)
 "
 " Use K to show documentation in preview window
 " TOOD use preview window not coc hover
@@ -543,7 +544,7 @@ omap ac <Plug>(coc-classobj-a)
 " nerdcommenter {
 " black formatter making commenting not reversible
 let g:NERDDefaultAlign = 'start'
-"let g:NERDDefaultAlign = 'left'
+let g:NERDDefaultAlign = 'left'
 
 " If undotree is opened, it is likely one wants to interact with it.
 let g:undotree_SetFocusWhenToggle=1
@@ -606,6 +607,16 @@ let s:vista_custom_vim_types.kinds = {
     \ 's': {'long' : 'section',            'fold' : 0, 'stl' : 0}
     \ }
 let g:vista#types#uctags#vim# = s:vista_custom_vim_types
+
+let s:vista_custom_zsh_types = {}
+let s:vista_custom_zsh_types.lang = 'zsh'
+let s:vista_custom_zsh_types.kinds = {
+    \ 'f': {'long' : 'functions',    'fold' : 0, 'stl' : 1},
+    \ 'a': {'long' : 'aliases',      'fold' : 0, 'stl' : 0},
+    \ 's': {'long' : 'script files', 'fold' : 0, 'stl' : 0},
+    \ 'p': {'long' : 'part',      'fold' : 0, 'stl' : 0}
+    \ }
+let g:vista#types#uctags#zsh# = s:vista_custom_zsh_types
 " chose vista end }
 
 elseif g:fuzzy_finder_plugin ==# 'tagbar gutentags'
@@ -871,6 +882,20 @@ nnoremap <Leader>u :UndotreeToggle<CR>
 "nnoremap ]E <Plug>(unimpairedMoveSelectionDown)gv
 vmap [E [egv
 vmap ]E ]egv
+
+function! DeleteHiddenBuffers()
+" https://stackoverflow.com/questions/8450919/how-can-i-delete-all-hidden-buffers/30101152#30101152
+  let tpbl=[]
+  let closed = 0
+  call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
+  for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1')
+    if getbufvar(buf, '&mod') == 0
+      silent execute 'bwipeout' buf
+      let closed += 1
+    endif
+  endfor
+  echo 'Closed '.closed.' hidden buffers'
+endfunction
 
 " end misc }
 
