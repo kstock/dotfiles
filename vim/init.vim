@@ -414,7 +414,7 @@ elseif g:fuzzy_finder_plugin ==# 'clap'
 
     " missing
     " map <leader>pu :Clap <CR> " TODO no undolist?
-"    map <leader>pc :Clap <CR> " TODO no changelist?
+"    map <leader>pc :Clap <CR> " TODO no changelist? have implemented own
 "
 "   ctrlp compat }
     " TODO several other related: bcommits,commits
@@ -434,6 +434,10 @@ elseif g:fuzzy_finder_plugin ==# 'clap'
 "
     " no pc but still leaving namespace for now
     map <leader>pC :Clap commits <CR>
+
+    " custom
+    map <leader>pc :Clap changelist<CR>
+    map <leader>pk :Clap ktest<CR>
 
 " `:Clap quick_open` to open some dotfiles quickly.
 let g:clap_provider_quick_open = {
