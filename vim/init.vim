@@ -457,6 +457,7 @@ let g:ale_linters = {
             \ ,'python':['pylint']
             \ ,'haskell':['stack_ghc']
             \ ,'typescript.tsx':['eslint']
+            \ ,'vim':['vint']
             \}
 
 let g:ale_linter_aliases = {'typescriptreact': 'typescript'}
@@ -465,13 +466,12 @@ let g:ale_sh_shellcheck_executable = 'shellcheck'
 "let g:ale_python_pylint_executable = '~/.virtualenvs/py3nvim/bin/pylint'
 
 let g:ale_fixers = {
-            \ 'python':['isort', 'trim_whitespace', 'black'],
-            \ 'rust':['rustfmt', 'trim_whitespace'],
-            \ 'javascript':['prettier', 'trim_whitespace'],
-            \ 'typescript':['prettier', 'trim_whitespace'],
-            \ 'html':['prettier', 'trim_whitespace'],
-            \ 'sh':['trim_whitespace'],
-            \ 'vim':['trim_whitespace'],
+            \ '*':['trim_whitespace'],
+            \ 'python':['isort', 'black'],
+            \ 'rust':['rustfmt'],
+            \ 'javascript':['prettier'],
+            \ 'typescript':['prettier'],
+            \ 'html':['prettier'],
             \}
 
 let g:ale_fix_on_save = 1
