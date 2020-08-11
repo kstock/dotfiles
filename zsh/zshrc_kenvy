@@ -3,7 +3,7 @@
 # vim: set foldmarker={,} foldlevel=1 foldmethod=marker:
 # }
 #
-#zmodload zsh/zprof # uncomment bottom to profile
+zmodload zsh/zprof # uncomment bottom to profile
 
 export EDITOR=vim
 export ZSH_DOTFILES_HOME="$HOME/dotfiles/kenvy/zsh"
@@ -175,8 +175,18 @@ bindkey '^g' _expand_alias
 
 
 # can only load once a day if become too slow
-autoload -U compinit
-compinit
+#autoload -U compinit
+#compinit
+autoload -Uz compinit
+
+# only regen once a day
+# https://gist.github.com/ctechols/ca1035271ad134841284#gistcomment-2308206
+for dump in ~/.zcompdump(N.mh+24); do
+  echo "again"
+  compinit
+done
+
+compinit -C
 
 # # TODO
 # https://github.com/lincheney/fzf-tab-completion
@@ -282,7 +292,6 @@ PATH="$HOME/.node_modules/bin:$PATH"
 export npm_config_prefix=~/.node_modules
 
 export PIPENV_VENV_IN_PROJECT=1
-#zprof
 #
 
 
@@ -319,3 +328,5 @@ alias zsh_naked='zsh --no-rcs'
 #export AWKPATH=$AWKPATH:$HOME/bin/awk/awk-libs 
 # vim-language-server lsp
 PATH="$PATH:/home/kstock/.config/nvim/plugged/ale/test/command_callback/vim_fixtures/node_modules/.bin"
+
+zprof
