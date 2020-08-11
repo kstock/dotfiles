@@ -238,6 +238,8 @@ nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<C
 " TODO make wrap
 noremap <Leader>te :+tabmove<CR>
 noremap <Leader>tb :-tabmove<CR>
+noremap <Leader>tE :tabmove $<CR>
+noremap <Leader>tB :tabmove 0<CR>
 
 " tag in new tab
 " https://stackoverflow.com/questions/6069279/vim-open-tag-in-new-tab
