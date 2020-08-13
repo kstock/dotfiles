@@ -74,10 +74,10 @@ alias qmv='qmv -f dc -o swap' #dest column first, then old name
 #
 # tree {
 # sudo pacman -S extra/tree
-export _TREE_IGNORE="-I node_modules"
-alias treed1='tree $_TREE_IGNORE -d -L 1'
-alias treed2='tree $_TREE_IGNORE -d -L 2'
-alias treed3='tree $_TREE_IGNORE -d -L 3'
+export _TREE_IGNORE="-I 'node_modules'"
+alias treed1="tree $_TREE_IGNORE -d -L 1"
+alias treed2="tree $_TREE_IGNORE -d -L 2"
+alias treed3="tree $_TREE_IGNORE -d -L 3"
 treedn(){
     # treed1 . == treedn 1 .
     tree "$_TREE_IGNORE" -d -L "$1" "$2"
