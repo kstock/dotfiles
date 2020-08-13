@@ -106,6 +106,26 @@ function nvims(){
 alias vims_refresh="rm -f Session.vim && vim -c ':Obsession'"
 alias nvims_refresh="rm -f Session.vim && nvim -c ':Obsession'"
 
+cat_session(){
+    local SESSION_FILENAME=${1-Session.vim}
+    if [ ! -f "$SESSION_FILENAME" ]; then
+        echo "$SESSION_FILENAME does not exist"
+        return
+    fi
+
+    wc -l "$SESSION_FILENAME"
+
+    stat "$SESSION_FILENAME" | grep -E 'Modify|Birth' | sed 's/\..*//' | tr '\n' '|'
+    echo # so next line is not on same line!!!
+
+    NUM_BUFFERS="$(grep badd $SESSION_FILENAME | wc -l)"
+    echo "num buffers: $NUM_BUFFERS"
+
+    DIR=${PWD/#$HOME/''}
+    grep badd "$SESSION_FILENAME"\
+        | sed "s;.*$DIR;.;" | sed 's/badd +[0-9]\+//'\
+        | sort | nl
+}
 # vims session }
 
 # meta }
