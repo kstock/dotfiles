@@ -122,7 +122,8 @@ endif
 let mapleader = ','
 " leader currently used up , (repeat motion backwards)
 " keeping this mapping here instead of in mapping section for simplicity
-nnoremap <silent> <Leader>; ,
+nnoremap <silent> <leader>; ,
+
 
 set clipboard=unnamedplus
 
@@ -232,18 +233,18 @@ vnoremap > >gv
 
 " Map <Leader>ff to display all lines with keyword under cursor
 " and ask which one to jump to
-nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+nmap <leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 
 " tab related {
 " TODO make wrap
-noremap <Leader>te :+tabmove<CR>
-noremap <Leader>tb :-tabmove<CR>
-noremap <Leader>tE :tabmove $<CR>
-noremap <Leader>tB :tabmove 0<CR>
+noremap <leader>te :+tabmove<CR>
+noremap <leader>tb :-tabmove<CR>
+noremap <leader>tE :tabmove $<CR>
+noremap <leader>tB :tabmove 0<CR>
 
 " tag in new tab
 " https://stackoverflow.com/questions/6069279/vim-open-tag-in-new-tab
-nnoremap <silent><Leader>t<C-]> <C-w><C-]><C-w>T
+nnoremap <silent><leader>t<C-]> <C-w><C-]><C-w>T
 
 " zoom. can just use <C-w>= to undo
 " <C-w>z already taken by close window <C-w>m available....
@@ -868,10 +869,9 @@ nmap <leader>ms <plug>(Mac_SearchForNamedMacroAndSelect)
 nmap <leader>mc <plug>(Mac_CopyCurrentMacroToRegister)
 
 " macrobatics }
-"
 " misc {
 
-nnoremap <Leader>u :UndotreeToggle<CR>
+nnoremap <leader>u :UndotreeToggle<CR>
 
 
 " unimpaired makes [e do "exchange"
