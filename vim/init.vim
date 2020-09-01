@@ -28,6 +28,8 @@ call plug#begin('~/.config/nvim/plugged')
     " TODO cf fzf.vim
     " Plug 'kien/ctrlp.vim'
     Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+    " provides Clap mrufiles. TODO
+    Plug 'markwu/vim-mrufiles'
 
     " TODO
     "Plug 'ivan-cukic/vim-ctrlp-switcher'
@@ -938,6 +940,7 @@ nnoremap <leader>aC :Ecomp<space>
 
 nnoremap <leader>u :UndotreeToggle<CR>
 
+let g:mrufiles_max_entries=1000
 
 " unimpaired makes [e do "exchange"
 " this allows vertical visual selection moving
