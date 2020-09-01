@@ -161,5 +161,6 @@ poetryigc(){
     git commit -m "$MSG"
 
 }
+alias poetry_needs_update="poetry update --dry-run | grep '\->'"
 # end poetry }
 # end virtualenv management }

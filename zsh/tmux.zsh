@@ -7,6 +7,16 @@
 #
 alias ta='tmux attach'
 alias tnew='tmux new -s '
+
+alias txks='tmux kill-session'
+alias txkw='tmux kill-window'
+alias txls='tmux list-session'
+alias txlw='tmux list-window'
+alias txlk='tmux list-keys'
+
+alias reltmux='tmux source-file ~/.tmux.conf'
+alias tmuxrel='tmux source-file ~/.tmux.conf'
+
 tas(){
     # attach or create new session with session_name (defaults to user name)
     local session_name="${1:-$USER}"
@@ -71,11 +81,14 @@ _send_command_to_tmux_window() {
         return
     fi
     input_command="$1"
+    echo "$(tmux list-panes -F '#{window_index}.#{pane_index}')"
     for _pane in $(tmux list-panes -F '#{window_index}.#{pane_index}'); do
         # only apply the command in bash or zsh panes.
+        # TODO poetry shell makes the command "python" and breaks this!!!!
+        # poss solution: can get #{pane_pid} then use pstree comparing like zsh───poetry───zsh
         _current_command=$(tmux display-message -p -t :${_pane} '#{pane_current_command}')
         if [ ${_current_command} = zsh ] || [ ${_current_command} = bash ] ; then
-            echo "${input_session}:${_pane} $_current_command"
+            #echo "${input_session}:${_pane} $_current_command"
             tmux send-keys -t ${_pane} "${input_command}" Enter
         fi
     done
@@ -146,3 +159,49 @@ tmux_move_winstash_from(){
     tmux join-pane -d -s "$src_pane" -t "$cur_windex"
 
 }
+
+tmuxprompte_to_session(){
+    set -xo
+    local NEWS NAME
+    NAME="$1"
+    if [ -z "$NAME" ]; then
+        NAME="$(basename $PWD)"
+    fi
+    NEWS="$(tmux new -dP -s $NAME)"
+    tmux movew -t "$NEWS"
+    tmux switch -t "$NEWS"
+    tmux move-window -t 1
+}
+
+tmuxoverview(){
+# https://superuser.com/questions/1277699/show-commands-running-in-background-in-tmux-pane
+#
+local mode
+mode="$1"
+
+tmux list-panes -a -F '#{pane_pid};#{session_name} #{window_name} #{session_id}.#{window_index}.#{pane_index}'| while
+   IFS=';' read -r pid tmuxid
+do
+   procs="$(pstree -p $pid | perl -pe 's/^/pstree\|/')"
+   workingdir="$(pwdx $pid)"
+   ONELINES="$tmuxid;$workingdir"
+   ONELINES="$(echo $ONELINES | column -s ';' -t)"
+   #echo "$ONELINES"
+   #echo "$procs"
+   echo "$ONELINES"
+   echo "$procs"
+done
+
+#lsof  -p 3706252 | grep -E 'DIR|swp$' | h '%[^%]*?swp'
+}
+
+vimoverview(){
+    pgrep vim | xargs -I '{}' lsof -p '{}' | grep -E 'DIR|swp$' | h '%[^%]*?swp'
+}
+
+
+# prefer as commands instead of as keybindings
+# https://github.com/tmux-plugins/tmux-logging
+alias tx_logging_clear_pane_history="$TMUX_PLUGIN_MANAGER_PATH/tmux-logging/scripts/clear_history.sh"
+alias tx_logging_saveall_pane_history="$TMUX_PLUGIN_MANAGER_PATH/tmux-logging/scripts/save_complete_history.sh"
+alias tx_logging_savevisible_pane_history="$TMUX_PLUGIN_MANAGER_PATH/tmux-logging/scripts/screen_capture.sh"

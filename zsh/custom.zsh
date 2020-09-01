@@ -16,6 +16,7 @@ alias -g tlra=' >> $RES' #append
 alias -g tlrcat=' > $RES && cat $RES'
 
 alias cr='cat $RES'
+alias eres='$EDITOR $RES'
 # end saved local results stuff}
 
 # boilerplates {

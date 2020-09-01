@@ -302,6 +302,7 @@ declare -a filelist=(
     "python.zsh"
 
     "custom.zsh"
+    "temper.zsh"
 
     "sensitive.zsh"
 
