@@ -157,7 +157,8 @@ set smartcase
 set hidden
 
 " on load fold code more than 2 deep
-set foldlevelstart=2
+"set foldlevelstart=2
+set foldlevelstart=99
 
 " relative numbers, except for current line!
 set number
@@ -188,10 +189,17 @@ let g:solarized_termcolors=16
 " TODO nonportable
 " this is a venv created jus for neovim
 let g:python3_host_prog = '~/.virtualenvs/py3nvim/bin/python'
+
+set lazyredraw                      " Only redraw after given command has completed
+if has('nvim')
+    set inccommand=nosplit
+endif
+
 " settings }
 
 " mappings {
 inoremap jj <Esc>
+inoremap jk <Esc>:w<ESC>
 
 nnoremap Y y$
 
@@ -217,6 +225,7 @@ map <leader>eW :e<space>
 map <leader>eS :sp<space>
 map <leader>eV :vsp<space>
 map <leader>eT :tabe<space>
+map <leader>tn :tabe<CR>
 
 
 " easy save
@@ -225,6 +234,9 @@ noremap <leader>W :wa<CR>
 
 noremap <leader>sp :sp<CR>
 noremap <leader>vs :vs<CR>
+
+" ZZ but del buffer
+noremap Zz :bd<CR><ESC>
 
 " select last paste in visual mode
 nnoremap <expr> gb '`[' . strpart(getregtype(), 0, 1) . '`]'
