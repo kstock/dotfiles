@@ -911,6 +911,29 @@ nmap <leader>ms <plug>(Mac_SearchForNamedMacroAndSelect)
 nmap <leader>mc <plug>(Mac_CopyCurrentMacroToRegister)
 
 " macrobatics }
+
+" projectionist {
+
+" a for Alternate
+" p taken by ctrlp muscle memory
+nnoremap <leader>aa :A<CR>
+nnoremap <leader>ad :Edoc<space>
+nnoremap <leader>aD :EData<space>
+nnoremap <leader>at :Etest<space>
+nnoremap <leader>ac :Econfig<space>
+nnoremap <leader>ab :Ebin<space>
+
+" quick access files
+" assume only 1 of these..
+nnoremap <leader>am :Emake<CR>
+nnoremap <leader>ae :Eenv<CR>
+
+" js related
+nnoremap <leader>as :Estory<space>
+nnoremap <leader>aC :Ecomp<space>
+
+" end projectionist }
+
 " misc {
 
 nnoremap <leader>u :UndotreeToggle<CR>
