@@ -100,6 +100,20 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'svermeulen/vim-macrobatics'
     Plug 'junegunn/vim-peekaboo'
 
+    Plug 'romainl/vim-qf'
+    "https://github.com/AndrewRadev/quickpeek.vim/issues/3
+    "not neovim compatible now
+    "Plug 'bfrg/vim-qf-preview'
+    "Plug 'AndrewRadev/quickpeek.vim'
+    "
+    Plug 't9md/vim-choosewin'
+
+    " cf more activitly maintained https://github.com/jez/vim-superman
+    Plug 'vim-utils/vim-man'
+
+    " " was too annoying and caused lag. gave peekaboo for marks
+    " Plug 'Yilin-Yang/vim-markbar'
+    "
 call plug#end()
 " end plug }
 " end plugins }
@@ -304,6 +318,11 @@ augroup foldmethods
     autocmd BufNewFile,BufRead *.page set foldmethod=indent
 augroup END
 
+augroup qfpreview
+    autocmd!
+    " from vim-qf
+    autocmd FileType qf nmap <buffer> p <plug>(qf-preview-open)
+augroup END
 " end autocmds }
 
 " Mimic Emacs Line Editing in Insert/command Mode {
@@ -896,6 +915,9 @@ function! DeleteHiddenBuffers()
   endfor
   echo 'Closed '.closed.' hidden buffers'
 endfunction
+
+nmap <leader>- <Plug>(choosewin)
+
 
 " end misc }
 
