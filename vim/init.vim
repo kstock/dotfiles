@@ -385,7 +385,18 @@ set statusline+=\ [%{getcwd()}]          " Current dir
 set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
 endif
 " end statusline }
-
+"
+" nvim {
+"if has('nvim') " TODO this just deleted v:oldfiles ????
+    " !     = save gloabl vars that start with uppercase
+    " '1000 = save 1000 marks and v:oldfiles
+    " <1000 = max lines saved per register
+    " s200  = Items with contents occupying more then 200 KiB
+    " h     = hightlighting remember
+    "
+    "set shada="!,'1000,<1000,s100,h"
+"endif
+" end nvim }
 " end basic }
 
 " plugin mappings {
