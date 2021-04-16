@@ -240,6 +240,8 @@ map <leader>tn :tabe<CR>
 noremap <leader>w :w<CR>
 noremap <leader>W :wa<CR>
 
+noremap <leader>Q :wqa<CR>
+
 noremap <leader>sp :sp<CR>
 noremap <leader>vs :vs<CR>
 
@@ -456,7 +458,7 @@ elseif g:fuzzy_finder_plugin ==# 'clap'
 "   same missing different
 "
     "same
-    map <leader>pp :Clap history<CR>
+    map <leader>ph :Clap history<CR>
     map <leader>pf :Clap files<CR>
     map <leader>pb :Clap buffers<CR>
     map <leader>pT :Clap proj_tags<CR>
@@ -464,6 +466,11 @@ elseif g:fuzzy_finder_plugin ==# 'clap'
     map <leader>pm :Clap marks<CR>
     map <leader>pl :Clap blines<CR>
     map <leader>pL :Clap loclist<CR>
+
+    " added via mrufiles plugin
+    "map <leader>pp :Clap history<CR>
+    map <leader>pp :Clap mrufiles<CR>
+    let g:mrufiles_max_entries = 1000
 
     " missing
     " map <leader>pu :Clap <CR> " TODO no undolist?
@@ -481,7 +488,7 @@ elseif g:fuzzy_finder_plugin ==# 'clap'
     map <leader>pP :Clap providers<CR>
     map <leader>pF :Clap filer<CR>
     map <leader>py :Clap yanks<CR>
-    map <leader>ph :Clap help_tags <CR>
+    map <leader>pH :Clap help_tags <CR>
     map <leader>ps :Clap search_history<CR>
     map <leader>p :Clap <CR>
 "
@@ -525,6 +532,7 @@ let g:ale_fixers = {
             \ 'javascript':['prettier'],
             \ 'typescript':['prettier'],
             \ 'html':['prettier'],
+            \ 'json':['jq'],
             \}
 
 let g:ale_fix_on_save = 1
