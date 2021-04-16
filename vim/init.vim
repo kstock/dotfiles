@@ -103,11 +103,11 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'junegunn/vim-peekaboo'
 
     Plug 'romainl/vim-qf'
-    "https://github.com/AndrewRadev/quickpeek.vim/issues/3
-    "not neovim compatible now
     "Plug 'bfrg/vim-qf-preview'
     "Plug 'AndrewRadev/quickpeek.vim'
-    "
+        "not neovim compatible now
+        "https://github.com/AndrewRadev/quickpeek.vim/issues/3
+
     Plug 't9md/vim-choosewin'
 
     " cf more activitly maintained https://github.com/jez/vim-superman
@@ -551,11 +551,30 @@ nmap ]W <Plug>(ale_next_wrap)
 " https://github.com/neoclide/coc.nvim#example-vim-configuration
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gr <Plug>(coc-references)
+
+" TODO do I use languages where thse are valuable...?
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-nmap <silent> gR <Plug>(coc-rename)
+
+nmap <silent> do <Plug>(coc-codeaction)
+nmap <leader>rn <Plug>(coc-rename)
 "
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+
+" Map function and class text objects
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
 " Use K to show documentation in preview window
 " TOOD use preview window not coc hover
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -568,6 +587,17 @@ function! s:show_documentation()
   endif
 endfunction
 
+" using ALE
+"vmap <leader>p  <Plug>(coc-format-selected)
+"nmap <leader>p  <Plug>(coc-format-selected)
+"
+"using ultisnips for snippets
+"" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+"let g:coc_snippet_prev = '<c-k>'
+
+" Use <C-j> for both expand and jump (make expand higher priority.)
+"imap <C-j> <Plug>(coc-snippets-expand-jump)
+
 "" Use <C-l> for trigger snippet expand.
 "imap <C-l> <Plug>(coc-snippets-expand)
 
@@ -577,29 +607,6 @@ endfunction
 "" Use <C-j> for jump to next placeholder, it's default of coc.nvim
 "let g:coc_snippet_next = '<c-j>'
 
-"" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
-let g:coc_snippet_prev = '<c-k>'
-
-" Use <C-j> for both expand and jump (make expand higher priority.)
-imap <C-j> <Plug>(coc-snippets-expand-jump)
-
-
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
-
-" Map function and class text objects
-" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-xmap if <Plug>(coc-funcobj-i)
-omap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap af <Plug>(coc-funcobj-a)
-xmap ic <Plug>(coc-classobj-i)
-omap ic <Plug>(coc-classobj-i)
-xmap ac <Plug>(coc-classobj-a)
-omap ac <Plug>(coc-classobj-a)
 " end coc }
 
 " nerdcommenter {
