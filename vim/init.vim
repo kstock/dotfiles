@@ -391,6 +391,7 @@ set statusline+=%w%h%m%r                 " Options
 set statusline+=%{fugitive#statusline()} " Git Hotness
 set statusline+=\ [%{&ff}/%Y]            " Filetype
 set statusline+=\ [%{getcwd()}]          " Current dir
+set statusline+=\ %{NearestMethodOrFunction()}
 set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
 endif
 " end statusline }
@@ -669,6 +670,18 @@ let s:vista_custom_zsh_types.kinds = {
     \ 'p': {'long' : 'part',      'fold' : 0, 'stl' : 0}
     \ }
 let g:vista#types#uctags#zsh# = s:vista_custom_zsh_types
+
+function! NearestMethodOrFunction() abort
+  return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
+
+
+" By default vista.vim never run if you don't call it explicitly.
+"
+" If you want to show the nearest function in your statusline automatically,
+" you can add the following line to your vimrc
+autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+
 " chose vista end }
 
 elseif g:fuzzy_finder_plugin ==# 'tagbar gutentags'
