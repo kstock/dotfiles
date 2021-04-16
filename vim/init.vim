@@ -335,7 +335,8 @@ augroup END
 augroup qfpreview
     autocmd!
     " from vim-qf
-    autocmd FileType qf nmap <buffer> p <plug>(qf-preview-open)
+    autocmd FileType qf nmap <buffer> { <Plug>(qf_previous_file)
+    autocmd FileType qf nmap <buffer> } <Plug>(qf_next_file)
 augroup END
 " end autocmds }
 
@@ -937,6 +938,14 @@ nnoremap <leader>aC :Ecomp<space>
 " end projectionist }
 
 " misc {
+
+"s - open entry in a new horizontal window
+"v - open entry in a new vertical window
+"t - open entry in a new tab
+"o - open entry and come back
+"O - open entry and close the location/quickfix window
+"p - open entry in a preview window
+let g:qf_mapping_ack_style = 1
 
 nnoremap <leader>u :UndotreeToggle<CR>
 
