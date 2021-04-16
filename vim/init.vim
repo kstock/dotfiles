@@ -851,6 +851,9 @@ augroup END
 
 command! Todo :Grepper -tool rg -noprompt -query 'TODO|FIXME'<CR>
 
+"let g:grepper = {}            " initialize g:grepper with empty dictionary
+runtime plugin/grepper.vim    " initialize g:grepper with default values
+
 " fugitive uses ,G
 " because these more common commands are taking ,g namespace!
 " however I'm keeping git-messenger gm since that is more common
@@ -859,14 +862,25 @@ nnoremap <leader>gB :Grepper -buffers<CR>
 
 nnoremap <leader>gg :Grepper -tool git<CR>
 nnoremap <leader>gd :Grepper -tool rg<CR>
+nnoremap <leader>gD :Grepper -tool rg -dir cwd <CR>
+nnoremap <leader>gf :Grepper -tool rg -dir file <CR>
 
+" instead of doing <C-r><C-w> to insert cword!
+nnoremap <leader>* :Grepper -tool rg -cword -noprompt<CR>
+
+let g:grepper.operator.prompt = 1
 nmap gs <plug>(GrepperOperator)
 xmap gs <plug>(GrepperOperator)
 
-"let g:grepper = {}            " initialize g:grepper with empty dictionary
-runtime plugin/grepper.vim    " initialize g:grepper with default values
+"default to repo search instead of cwd
+" essentially always adds "-dir repo" to command
+" <c-d> will toggle this option
+let g:grepper.dir         = 'repo'
 
-let g:grepper.tools = ['rg', 'ack', 'ag', 'ack-grep', 'grep', 'git', 'pt', 'sift']
+let g:grepper.highlight   = 1
+
+"let g:grepper.tools = ['rg', 'ack', 'ag', 'ack-grep', 'grep', 'git', 'pt', 'sift']
+let g:grepper.tools = ['rg', 'git', 'grep']
 
 " Make some shortands for various grep programs
 " https://github.com/ViViDboarder/vim-settings/blob/e085795b92dd28e4a775d310ad887518663038aa/vim/rc/plugins/vim-grepper.rc.vim
