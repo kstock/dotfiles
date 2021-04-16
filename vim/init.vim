@@ -113,6 +113,12 @@ call plug#begin('~/.config/nvim/plugged')
     " cf more activitly maintained https://github.com/jez/vim-superman
     Plug 'vim-utils/vim-man'
 
+    " C-a/x to cycle True -> False, etc
+    Plug 'Konfekt/vim-CtrlXA'
+
+    " allows gx to open github page for plugins!
+    Plug 'stsewd/gx-extended.vim'
+
     " " was too annoying and caused lag. gave peekaboo for marks
     " Plug 'Yilin-Yang/vim-markbar'
     "
@@ -938,6 +944,10 @@ nnoremap <leader>aC :Ecomp<space>
 " end projectionist }
 
 " misc {
+
+" https://github.com/Konfekt/vim-CtrlXA
+nmap <Plug>SpeedDatingFallbackUp   <Plug>(CtrlXA-CtrlA)
+nmap <Plug>SpeedDatingFallbackDown <Plug>(CtrlXA-CtrlX)
 
 "s - open entry in a new horizontal window
 "v - open entry in a new vertical window
